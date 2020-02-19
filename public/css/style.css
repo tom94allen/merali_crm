@@ -3,7 +3,37 @@ nav{
     
 }
 
+.card-title{
+    font-family: 'Montserrat', sans-serif !important;
+}
+
 .shadow-sm{
     box-shadow: 0.25px 0.25px 8px #F51969 !important;
+}
+
+.welcome{
+    font-family: 'Montserrat', sans-serif ;
+}
+
+.main-text{
+    font-family: 'Noto Sans', sans-serif !important;
+}
+
+a{
+    color: black !important;
+    text-decoration: none;
+}
+
+a:hover{
+    text-decoration: none;
+}
+
+.task-card{
+    transition: all .2s ease-in-out;
+}
+
+.task-card:hover{
+    transform: scale(1.01);
+    
 }
     

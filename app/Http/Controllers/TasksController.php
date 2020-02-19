@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\Task;
+use App\User;
+use App\TaskStatus;
 
 class TasksController extends Controller
 {
@@ -13,7 +17,11 @@ class TasksController extends Controller
      */
     public function index()
     {
-        //
+        $auth_id = Auth::user()->id;
+        $user = User::where('id', $auth_id)->firstOrFail();
+        $status = TaskStatus::all();
+        $tasks = Task::all();
+        return view('dashboard')->with('user', $user)->with('tasks', $tasks)->with('status', $status);
     }
 
     /**
@@ -56,7 +64,7 @@ class TasksController extends Controller
      */
     public function edit($id)
     {
-        //
+        return "Hello";
     }
 
     /**
