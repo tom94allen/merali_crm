@@ -8,6 +8,8 @@ class Task extends Model
 {
     protected $dates = ['due_date'];
 
+    protected $casts = ['due_date'  => 'datetime',];
+
     public function user(){
         return $this->belongsTo('App\User');
     }

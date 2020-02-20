@@ -18,3 +18,5 @@ Auth::routes();
 Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
 
 Route::resource('tasks', 'TasksController');
+
+Route::resource('customers', 'CustomerController');

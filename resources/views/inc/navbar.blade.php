@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+<nav class="navbar navbar-expand-md shadow-sm">
     <div class="container">
         <a class="navbar-brand" href="{{ url('/') }}">
             {{ config('app.name', 'Laravel') }}
@@ -10,7 +10,12 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <!-- Left Side Of Navbar -->
             <ul class="navbar-nav mr-auto">
-
+                <li class="nav-item">
+                    <a class="nav-link" href="{{url('/customers')}}">{{ __('Customers') }}</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{url('/tasks')}}">{{ __('Tasks') }}</a>
+                </li>
             </ul>
 
             <!-- Right Side Of Navbar -->

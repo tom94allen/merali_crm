@@ -1,6 +1,10 @@
+body{
+    background-color: rgb(194,234,189, 0.2) !important;
+}
+
 nav{
     font-family: 'Montserrat', sans-serif;
-    
+    border-bottom: 2px solid rgb(245,25,50, 0.3);
 }
 
 .card-title{
@@ -8,7 +12,7 @@ nav{
 }
 
 .shadow-sm{
-    box-shadow: 0.25px 0.25px 8px #F51969 !important;
+    box-shadow: 0.25px 0.25px 2px #F51969 !important;
 }
 
 .welcome{
@@ -28,12 +32,31 @@ a:hover{
     text-decoration: none;
 }
 
+.day-card{
+    padding: 15px;
+    margin: 5px;
+    border: 2px solid rgb(1,25,54, 0.05);
+    border-radius: 6px;
+    background-color: rgb(1,25,54, 0.1) !important;
+}
+
 .task-card{
     transition: all .2s ease-in-out;
+    margin: 5px;
 }
 
 .task-card:hover{
     transform: scale(1.01);
-    
+    box-shadow: 0.25px 0.25px 8px #F51969;
+}
+
+.change-view{
+    border-radius: 6px;
+    text-align: center;
+    color: white !important;
+    font-family: 'Noto Sans', sans-serif !important;
+    padding: 5px;
+    margin: 5px;
+    background-color: #F51969;
 }
     
