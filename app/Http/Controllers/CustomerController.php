@@ -13,7 +13,7 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        return "hello";
+        return view('customers.index');
     }
 
     /**
@@ -80,5 +80,10 @@ class CustomerController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function find(Request $request)
+    {
+        //for search field in on customers main page
     }
 }

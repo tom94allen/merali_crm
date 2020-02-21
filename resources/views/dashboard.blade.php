@@ -7,13 +7,14 @@
 </div>
 
 <div class="row">
-    <a class="col-lg-2 main-text change-view" href="" onclick="updateView()">&nbsp Change View</a>
+    <button id="view_button" class="col-lg-2 main-text change-view" onclick="updateView()">&nbsp Show All Tasks</button>
+    <a class="col-lg-2 main-text change-view" href="{{url('/tasks/create')}}">{{ __('Add Task') }}</a>
 </div>
 <br>
 
-<div id="week_view">
+<div id="week_view" class="show">
     <div class="row">
-        <p class="col-lg main-text">&nbsp Let's see what you've got on this week...</p>
+        <p class="col-lg main-text">&nbsp; Let's see what you've got on this week...</p>
     </div>
     <br>
 
@@ -243,32 +244,48 @@
         </div>
     @endif
 </div>
+<div id="all_task_view" class="hide">
+    <div class="row">
+        <p class="col-lg main-text">&nbsp; Here's all of your current tasks...</p>
+    </div>
+    <br>
+
+    @if (Auth::user()->id == $user->id)
+        @foreach ($tasks as $task)
+            <div class="row">
+                <div class="card task-card col-lg">
+                    <a href="tasks/{{$task->task_id}}/edit">
+                        <div class="card-body">
+                            <div class="card-title">{{$task->task_name}}</div>
+                            <hr>
+                            <div class="card-text main-text">Due : {{$task->due_date->format('d/m/Y')}}</div>
+                            @switch($task->status_id)
+                                @case(1)
+                                    <div class="card-text main-text">Status : Not Started</div>
+                                    @break
+                                @case(2)
+                                <div class="card-text main-text">Status : Overdue</div>
+                                    @break
+                                @case(3)
+                                    <div class="card-text main-text">Status : Completed</div>
+                                    @break
+                                @default
+                                    @break 
+                            @endswitch
+                        </div>
+                    </a>
+                </div>
+            </div>
+        @endforeach
+    @else
+        <div class="row">
+            <div class="col-lg">
+                <h6 class="text-center main-text">Lucky You! You currently have no tasks to complete.</h6>
+            </div>
+        </div> 
+    @endif
+</div>
 
 
 <script src="{{ asset('js/app.js') }}" defer></script>
 @endsection
-
-
-{{-- <div class="card col-lg task-card">
-    {{$k}}
-    <a href="tasks/{{$task->task_id}}/edit">
-        <div class="card-body">
-            <h4 class="card-title">{{$task->task_name}}</h4>
-            <hr>
-            <h6 class="card-text main-text">Due : {{$task->due_date->format('d/m/Y')}}</h6>
-            @switch($task->status_id)
-                @case(1)
-                    <h6 class="card-text main-text">Status : Not Started</h6>
-                    @break
-                @case(2)
-                <h6 class="card-text main-text">Status : Overdue</h6>
-                    @break
-                @case(3)
-                    <h6 class="card-text main-text">Status : Completed</h6>
-                    @break
-                @default
-                    @break 
-            @endswitch
-        </div>
-    </a>
-</div> --}}

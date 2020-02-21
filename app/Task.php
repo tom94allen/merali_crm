@@ -6,6 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Task extends Model
 {
+
+    protected $primaryKey = 'task_id';
+
     protected $dates = ['due_date'];
 
     protected $casts = ['due_date'  => 'datetime',];

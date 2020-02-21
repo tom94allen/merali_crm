@@ -9,6 +9,7 @@ use Carbon\Carbon;
 use Carbon\CarbonPeriod;
 use App\Task;
 use App\User;
+use App\Customer;
 use App\TaskStatus;
 
 class TasksController extends Controller
@@ -72,7 +73,10 @@ class TasksController extends Controller
      */
     public function create()
     {
-        //
+        $customers = Customer::all();
+        $task_status = TaskStatus::all();
+        $users = User::all();
+        return view('tasks.create')->with('customers', $customers)->with('task_status', $task_status)->with('users', $users);
     }
 
     /**
@@ -83,7 +87,32 @@ class TasksController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
+        $this->validate($request, [
+            'task_name' => 'required',
+            'due_date' => 'required',
+            'details' => 'required',
+            'user_id' => 'required',
+            'status_id' => 'required',
+        ]);
+        //Create task
+
+        $task = new Task;
+        $task->task_name = $request->input('task_name');
+        $task->due_date = $request->input('due_date');
+        $task->details =  $request->input('details');
+        $task->user_id = $request->input('user_id');
+        $task->status_id = $request->input('status_id');
+        if($request->input('customer_id')){
+            $task->customer_id = $request->input('customer_id');
+        }
+        else{
+            $task->customer_id = NULL;
+        }
+        $task->save();
+
+        return redirect('/tasks')->with('success', 'Task Created');
+        
     }
 
     /**
@@ -105,7 +134,11 @@ class TasksController extends Controller
      */
     public function edit($id)
     {
-        return "Hello";
+        $task = Task::find($id);
+        $customers = Customer::all();
+        $task_status = TaskStatus::all();
+        $users = User::all();
+        return view('tasks.edit')->with('customers', $customers)->with('task_status', $task_status)->with('users', $users)->with('task', $task);
     }
 
     /**
@@ -117,7 +150,21 @@ class TasksController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $task = Task::find($id);
+        $task->task_name = $request->input('task_name');
+        $task->due_date = $request->input('due_date');
+        $task->details =  $request->input('details');
+        $task->user_id = $request->input('user_id');
+        $task->status_id = $request->input('status_id');
+        if($request->input('customer_id')){
+            $task->customer_id = $request->input('customer_id');
+        }
+        else{
+            $task->customer_id = NULL;
+        }
+        $task->save();
+
+        return redirect('/tasks')->with('success', 'Task Updated');
     }
 
     /**
@@ -128,6 +175,8 @@ class TasksController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $task = Task::find($id);
+        $task->delete();
+        return redirect('/tasks')->with('success', 'Task Deleted');
     }
 }
