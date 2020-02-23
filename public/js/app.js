@@ -18,4 +18,22 @@ function updateView(){
         view_button.innerText = 'Show All Tasks';
     }
 
+
+}
+
+function findCustomer(){
+    var val = document.getElementById('search_field').value;
+    $.ajax({
+        type: "GET",
+        url: "/find",
+        data: {'val': val},
+        // dataType: 'String', 
+        success: function (response) {
+            console.log(response);
+        },
+        error: function(jqXHR, textStatus, errorThrown) { // What to do if we fail
+            console.log(JSON.stringify(jqXHR));
+            console.log("AJAX error: " + textStatus + ' : ' + errorThrown);
+        },
+    });
 }
