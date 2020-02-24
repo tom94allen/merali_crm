@@ -3,7 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Customer;
+use App\CustomerStatus;
+use App\Task;
+use App\TaskStatus;
+use App\Contact;
+use App\ContactType;
 
 class CustomerController extends Controller
 {
@@ -14,7 +20,19 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        return view('customers.index');
+        //dashboard style page for customers where all customers are displayed by default 
+        
+        //get necessary info from DB
+        $user = Auth::user();
+        $customers = Customer::orderBy('name', 'ASC')->get();
+        $cust_status = CustomerStatus::all();
+    
+        //return view parsing necessary vars
+        return view('customers.index')->with('user', $user)
+                                      ->with('customers', $customers)
+                                      ->with('cust_status', $cust_status);
+
+
     }
 
     /**
@@ -24,7 +42,7 @@ class CustomerController extends Controller
      */
     public function create()
     {
-        //
+        return "hellooo";
     }
 
     /**
@@ -46,7 +64,24 @@ class CustomerController extends Controller
      */
     public function show($id)
     {
-        //
+        //fetch the customer in question and the cust status text
+        $customer = Customer::find($id);
+        $cust_status = CustomerStatus::all();
+        //get their open tasks and all task status
+        $tasks = Task::where('customer_id', "{$id}")->get();
+        $task_status = TaskStatus::all();
+        //get their recent contacts
+        $contacts = Contact::where('customer_id', "{$id}")->take(5)->get();
+        $cont_type = ContactType::all();
+        $x = 1;
+
+        return view('customers.show')->with('customer', $customer)
+                                     ->with('cust_status', $cust_status)
+                                     ->with('tasks', $tasks)
+                                     ->with('task_status', $task_status)
+                                     ->with('contacts', $contacts)
+                                     ->with('x', $x)
+                                     ->with('cont_type', $cont_type);
     }
 
     /**
@@ -83,21 +118,21 @@ class CustomerController extends Controller
         //
     }
     
-    public function find(Request $request){
+    public function find(Request $request)
+    {
+        //ajax method used for search field on customers index view
+
         $data = $request->all();
         $query_data = $data['val'];
         // $cust_results = Customer::where('name', 'LIKE','%' . $data . '%')-->get();
-        $data = Customer::where('name', 'like', "%{$query_data}%")->get();
-        return $data;
-        // $output = '<ul class="dropdown-menu" style="display:block">';
-        // foreach($data as $k => $item){
-        //     $output .= '
-        //             <li class = "dropdown-item">
-        //                 <a href="/customers/'.$item[$k]->customer_id.'>'.$item[$k]->name.'</a>"
-        //             </li>;';
-        // }
-        // $output .= '</ul>';
-        // return $output;
+        $query = Customer::where('name', 'like', "%{$query_data}%")->orderBy('name', 'ASC')->get();
+        // return $query;
+        $output = '<ul class="result-display">';
+        foreach($query as $item){
+            $output .= '<li class="result-item"><a href="customers/'.$item->customer_id.'">'.$item->name.'</a></li>';
+        }
+        $output .= '</ul>'; 
+        return $output;
         
     }
 

@@ -21,15 +21,43 @@ function updateView(){
 
 }
 
+function customerView(){
+    var main_area = document.getElementById('main-area');
+    var search_area = document.getElementById('search-area');
+    var view_button = document.getElementById('view_button');
+
+    if(search_area.classList.contains('show')){
+        search_area.classList.remove('show');
+        search_area.classList.add('hide');
+        main_area.classList.remove('hide');
+        main_area.classList.add('show');
+        view_button.innerText = 'Search By Customer';
+    }
+    else if(search_area.classList.contains('hide')){
+        search_area.classList.remove('hide');
+        search_area.classList.add('show');
+        main_area.classList.remove('show');
+        main_area.classList.add('hide');
+        view_button.innerText = 'View All Customers';
+    }
+}
+
 function findCustomer(){
     var val = document.getElementById('search_field').value;
     $.ajax({
         type: "GET",
-        url: "/find",
-        data: {'val': val},
-        // dataType: 'String', 
+        url: "find",
+        data: {'val': val}, 
         success: function (response) {
-            console.log(response);
+            var search_field = document.getElementById('search_field');
+            var search_result = document.getElementById('search_result');
+            search_result.style.display = "block";
+            search_result.innerHTML = response;
+            
+            if(document.activeElement != search_field){
+                search_result.style.display = "none";
+            }
+                
         },
         error: function(jqXHR, textStatus, errorThrown) { // What to do if we fail
             console.log(JSON.stringify(jqXHR));

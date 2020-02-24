@@ -6,6 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Customer extends Model
 {
+
+    public $primaryKey = 'customer_id';
+
+    public $table = 'customers';
+
     public function user(){
         return $this->belongsTo('App\User');
     }

@@ -16,6 +16,9 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{url('/tasks')}}">{{ __('Tasks') }}</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{url('/contacts')}}">{{ __('Contacts') }}</a>
+                </li>
             </ul>
 
             <!-- Right Side Of Navbar -->
@@ -33,7 +36,7 @@
                 @else
                 @if (Auth::user()->user_role == 3)
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url('/register') }}">{{ __('Create User') }}</a>
+                        <a class="nav-link" href="{{ route('register') }}">{{ __('Create User') }}</a>
                     </li>
                 @endif
                     <li class="nav-item dropdown">

@@ -79,3 +79,66 @@ a:hover{
     color: white !important;
     border-color: #F51969 !important;
 }
+
+#search_result{
+    font-family: 'Noto Sans' !important;
+    display: none;
+    background-color: white;
+    height: 200px;
+}
+
+.result-item{
+    text-decoration: none;
+    list-style-type: none;
+    font-family: 'Noto Sans' !important;
+    padding: 5px;
+    margin-top: 2px;
+    transition: all .2s ease-in-out;
+}
+.result-item:hover{
+    transform: scale(1.01);
+    font-weight: bold;
+}
+
+#main-area{
+    margin-top: 25px;
+}
+
+.customer-card{
+    margin: 5px;
+    transition: all .2s ease-in-out;
+}
+
+.customer-card:hover{
+    transform: scale(1.01);
+    box-shadow: 0.25px 0.25px 8px #F51969;
+}
+
+#cx-task-display{
+    height: 75vh !important;
+    background-color: white !important;
+    border-radius: 6px;
+    border: 1px solid rgb(0,0,0,0.1);
+    margin-top: 15px;
+}
+
+#cx-contacts{
+    height: 45vh !important;
+    background-color: white !important;
+    border-radius: 6px;
+    border: 1px solid rgb(0,0,0,0.1);
+    margin-top: 15px;
+}
+
+.cx-tasks{
+    text-decoration: none;
+    list-style-type: none;
+    padding: 15px;
+}
+
+.cx-task-list{
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+

@@ -21,14 +21,17 @@ class TasksController extends Controller
      */
     public function index()
     {
+        //getting data
         $auth_id = Auth::user()->id;
         $user = User::where('id', $auth_id)->firstOrFail();
         $status = TaskStatus::all();
         $tasks = Task::all();
+        //setting the range of dates for the current week
         $now = Carbon::now();
         $weekStartDate = $now->startOfWeek()->format('Y-m-d');
         $weekEndDate = $now->endOfWeek()->format('Y-m-d');
         
+        //forming an associate array with days of weeks as keys and mapping their dates for the current week respectively
         $dates = array();
         $period = CarbonPeriod::create($weekStartDate, $weekEndDate);
         
@@ -39,6 +42,8 @@ class TasksController extends Controller
         $combined = $collection->combine([$dates[0], $dates[1], $dates[2], $dates[3], $dates[4], $dates[5], $dates[6]]);
         
         $curr_week = $combined->all();
+
+        //assiging a due day to the column in the task table
         foreach($tasks as $task){
             if($task->due_date == $curr_week['Monday']){
                 $task->day_due = "Monday";
