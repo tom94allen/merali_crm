@@ -21,4 +21,6 @@ Route::resource('tasks', 'TasksController');
 
 Route::resource('customers', 'CustomerController');
 
+Route::resource('contacts', 'ContactsController');
+
 Route::get('/find', 'CustomerController@find');
