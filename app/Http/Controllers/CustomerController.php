@@ -10,6 +10,7 @@ use App\Task;
 use App\TaskStatus;
 use App\Contact;
 use App\ContactType;
+use App\User;
 
 class CustomerController extends Controller
 {
@@ -64,6 +65,8 @@ class CustomerController extends Controller
      */
     public function show($id)
     {
+        //fetch all user info to establish owner of customer
+        $users = User::all();
         //fetch the customer in question and the cust status text
         $customer = Customer::find($id);
         $cust_status = CustomerStatus::all();
@@ -71,17 +74,18 @@ class CustomerController extends Controller
         $tasks = Task::where('customer_id', "{$id}")->get();
         $task_status = TaskStatus::all();
         //get their recent contacts
-        $contacts = Contact::where('customer_id', "{$id}")->take(5)->get();
+        $contacts_five = Contact::where('customer_id', "{$id}")->orderBy('created_at', 'DESC')->take(5)->get();
+        $last_contact = Contact::where('customer_id', "{$id}")->orderBy('created_at', 'DESC')->take(1)->first();
         $cont_type = ContactType::all();
-        $x = 1;
 
         return view('customers.show')->with('customer', $customer)
                                      ->with('cust_status', $cust_status)
                                      ->with('tasks', $tasks)
                                      ->with('task_status', $task_status)
-                                     ->with('contacts', $contacts)
-                                     ->with('x', $x)
-                                     ->with('cont_type', $cont_type);
+                                     ->with('contacts_five', $contacts_five)
+                                     ->with('cont_type', $cont_type)
+                                     ->with('users', $users)
+                                     ->with('last_contact', $last_contact);
     }
 
     /**
