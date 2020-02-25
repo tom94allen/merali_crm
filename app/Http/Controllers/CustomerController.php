@@ -43,7 +43,9 @@ class CustomerController extends Controller
      */
     public function create()
     {
-        return "hellooo";
+        $users = User::all();
+        $cust_status = CustomerStatus::all();
+        return view('customers.create')->with('users', $users)->with('cust_status', $cust_status);
     }
 
     /**
@@ -54,7 +56,37 @@ class CustomerController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'name' => 'required',
+            'address_line1' => 'required',
+            'town' => 'required',
+            'postcode' => 'required',
+            'telephone' => 'required',
+            'owner' => 'required',
+            'status' => 'required',
+            'contact_name' => 'required',
+            'contact_role' => 'required',
+        ]);
+
+        $customer = new Customer;
+        $customer->name = $request->input('name');
+        $customer->address_line1 = $request->input('address_line1');
+        $customer->town = $request->input('town');
+        $customer->postcode = $request->input('postcode');
+        if($request->input('email')){
+            $customer->email = $request->input('email');
+        }
+        else{
+            $customer->email = NULL;
+        }
+        $customer->telephone = $request->input('telephone');
+        $customer->owner = $request->input('owner');
+        $customer->status = $request->input('status');
+        $customer->contact_name = $request->input('contact_name');
+        $customer->contact_role = $request->input('contact_role');
+        $customer->save();
+        return redirect('/customers')->with('success', 'Customer Created');
+
     }
 
     /**

@@ -3,11 +3,12 @@
 @section('content')
     <div id="page" class="col-lg">
         <div class="row">
-            <h1 class="col-lg-5 welcome">{{$customer->name}}</h1>
+            <h1 class="col-lg-5 welcome" style="text-decoration:underline">{{$customer->name}}</h1>
             <a class="col-lg-2 cust-btns" href='../customers/{{$customer->customer_id}}/edit'>Edit Customer</a>
             <a class="col-lg-2 cust-btns" href='../tasks/create/{{$customer->customer_id}}'>Create Task</a>
             <a class="col-lg-2 cust-btns" href='../contacts/create/{{$customer->customer_id}}'>Create Contact</a>
         </div>
+        <br>
 
         <div class="row">
             <div id="customer_info">
