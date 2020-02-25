@@ -109,7 +109,6 @@ class CustomerController extends Controller
         $contacts_five = Contact::where('customer_id', "{$id}")->orderBy('created_at', 'DESC')->take(5)->get();
         $last_contact = Contact::where('customer_id', "{$id}")->orderBy('created_at', 'DESC')->take(1)->first();
         $cont_type = ContactType::all();
-
         return view('customers.show')->with('customer', $customer)
                                      ->with('cust_status', $cust_status)
                                      ->with('tasks', $tasks)

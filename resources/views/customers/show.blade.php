@@ -31,7 +31,12 @@
                         @endforeach
                         &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;           
                         <aside class="col-lg-1 table-label">Contacted</aside>
-                        <aside class="col-lg-2 table-item">{{date('d/m/Y', strtotime($last_contact->created_at))}}</aside>
+                        @if (!empty($last_contact))
+                            <aside class="col-lg-2 table-item">{{$last_contact->created_at->format('d/m/Y')}}</aside>
+                        @else
+                            <aside class="col-lg-2 table-item">None made yet</aside>
+                        @endif
+                        
                     </div>
                     <br>
                     <div class="row">

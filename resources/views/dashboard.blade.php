@@ -23,29 +23,31 @@
             <div class="col-lg welcome day-card">
                 <div class="card-title">&nbsp Monday</div>
                     @foreach ($tasks as $task)
-                        @if ($task->day_due == 'Monday')
-                            <div class="card task-card">
-                                <a href="tasks/{{$task->task_id}}/edit">
-                                    <div class="card-body">
-                                        <div class="card-title">{{$task->task_name}}</div>
-                                        <hr>
-                                        <div class="card-text main-text">Due : {{$task->due_date->format('d/m/Y')}}</div>
-                                        @switch($task->status_id)
-                                            @case(1)
-                                                <div class="card-text main-text">Status : Not Started</div>
-                                                @break
-                                            @case(2)
-                                            <div class="card-text main-text">Status : Overdue</div>
-                                                @break
-                                            @case(3)
+                        @if($task->status_id != 2)
+                            @if ($task->day_due == 'Monday')
+                                <div class="card task-card">
+                                    <a href="tasks/{{$task->task_id}}/edit">
+                                        <div class="card-body">
+                                            <div class="card-title">{{$task->task_name}}</div>
+                                            <hr>
+                                            <div class="card-text main-text">Due : {{$task->due_date->format('d/m/Y')}}</div>
+                                            @switch($task->status_id)
+                                                @case(1)
+                                                    <div class="card-text main-text">Status : Not Started</div>
+                                                    @break
+                                                @case(2)
                                                 <div class="card-text main-text">Status : Completed</div>
-                                                @break
-                                            @default
-                                                @break 
-                                        @endswitch
-                                    </div>
-                                </a>
-                            </div>
+                                                    @break
+                                                @case(3)
+                                                    <div class="card-text main-text">Status : Overdue</div>
+                                                    @break
+                                                @default
+                                                    @break 
+                                            @endswitch
+                                        </div>
+                                    </a>
+                                </div>
+                            @endif
                         @endif
                     @endforeach  
             </div>
@@ -54,29 +56,31 @@
             <div class="col-lg welcome day-card">
                 <div class="card-title">&nbsp Tuesday</div>
                     @foreach ($tasks as $task)
-                        @if ($task->day_due == 'Tuesday')
-                            <div class="card task-card">
-                                <a href="tasks/{{$task->task_id}}/edit">
-                                    <div class="card-body">
-                                        <div class="card-title">{{$task->task_name}}</div>
-                                        <hr>
-                                        <div class="card-text main-text">Due : {{$task->due_date->format('d/m/Y')}}</div>
-                                        @switch($task->status_id)
-                                            @case(1)
-                                                <div class="card-text main-text">Status : Not Started</div>
-                                                @break
-                                            @case(2)
-                                            <div class="card-text main-text">Status : Overdue</div>
-                                                @break
-                                            @case(3)
+                        @if($task->status_id != 2)
+                            @if ($task->day_due == 'Tuesday')
+                                <div class="card task-card">
+                                    <a href="tasks/{{$task->task_id}}/edit">
+                                        <div class="card-body">
+                                            <div class="card-title">{{$task->task_name}}</div>
+                                            <hr>
+                                            <div class="card-text main-text">Due : {{$task->due_date->format('d/m/Y')}}</div>
+                                            @switch($task->status_id)
+                                                @case(1)
+                                                    <div class="card-text main-text">Status : Not Started</div>
+                                                    @break
+                                                @case(2)
                                                 <div class="card-text main-text">Status : Completed</div>
-                                                @break
-                                            @default
-                                                @break 
-                                        @endswitch
-                                    </div>
-                                </a>
-                            </div>
+                                                    @break
+                                                @case(3)
+                                                    <div class="card-text main-text">Status : Overdue</div>
+                                                    @break
+                                                @default
+                                                    @break 
+                                            @endswitch
+                                        </div>
+                                    </a>
+                                </div>
+                            @endif
                         @endif
                     @endforeach  
             </div>
@@ -85,7 +89,41 @@
             <div class="col-lg welcome day-card">
                 <div class="card-title">&nbsp Wednesday</div>
                     @foreach ($tasks as $task)
-                        @if ($task->day_due == 'Wednesday')
+                        @if($task->status_is != 2)
+                            @if ($task->day_due == 'Wednesday')
+                                <div class="card task-card">
+                                    <a href="tasks/{{$task->task_id}}/edit">
+                                        <div class="card-body">
+                                            <div class="card-title">{{$task->task_name}}</div>
+                                            <hr>
+                                            <div class="card-text main-text">Due : {{$task->due_date->format('d/m/Y')}}</div>
+                                            @switch($task->status_id)
+                                                @case(1)
+                                                    <div class="card-text main-text">Status : Not Started</div>
+                                                    @break
+                                                @case(2)
+                                                <div class="card-text main-text">Status : Completed</div>
+                                                    @break
+                                                @case(3)
+                                                    <div class="card-text main-text">Status : Overdue</div>
+                                                    @break
+                                                @default
+                                                    @break 
+                                            @endswitch
+                                        </div>
+                                    </a>
+                                </div>
+                            @endif
+                        @endif
+                    @endforeach
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg welcome day-card">
+                <div class="card-title">&nbsp Thursday</div>
+                @foreach ($tasks as $task)
+                    @if($task->status_id != 2)
+                        @if ($task->day_due == 'Thursday')
                             <div class="card task-card">
                                 <a href="tasks/{{$task->task_id}}/edit">
                                     <div class="card-body">
@@ -97,10 +135,10 @@
                                                 <div class="card-text main-text">Status : Not Started</div>
                                                 @break
                                             @case(2)
-                                            <div class="card-text main-text">Status : Overdue</div>
+                                            <div class="card-text main-text">Status : Completed</div>
                                                 @break
                                             @case(3)
-                                                <div class="card-text main-text">Status : Completed</div>
+                                                <div class="card-text main-text">Status : Overdue</div>
                                                 @break
                                             @default
                                                 @break 
@@ -109,36 +147,6 @@
                                 </a>
                             </div>
                         @endif
-                    @endforeach
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg welcome day-card">
-                <div class="card-title">&nbsp Thursday</div>
-                @foreach ($tasks as $task)
-                    @if ($task->day_due == 'Thursday')
-                        <div class="card task-card">
-                            <a href="tasks/{{$task->task_id}}/edit">
-                                <div class="card-body">
-                                    <div class="card-title">{{$task->task_name}}</div>
-                                    <hr>
-                                    <div class="card-text main-text">Due : {{$task->due_date->format('d/m/Y')}}</div>
-                                    @switch($task->status_id)
-                                        @case(1)
-                                            <div class="card-text main-text">Status : Not Started</div>
-                                            @break
-                                        @case(2)
-                                        <div class="card-text main-text">Status : Overdue</div>
-                                            @break
-                                        @case(3)
-                                            <div class="card-text main-text">Status : Completed</div>
-                                            @break
-                                        @default
-                                            @break 
-                                    @endswitch
-                                </div>
-                            </a>
-                        </div>
                     @endif
                 @endforeach
             </div>
@@ -147,29 +155,31 @@
             <div class="col-lg welcome day-card">
                 <div class="card-title">&nbsp Friday</div>
                 @foreach ($tasks as $task)
-                    @if ($task->day_due == 'Friday')
-                        <div class="card task-card">
-                            <a href="tasks/{{$task->task_id}}/edit">
-                                <div class="card-body">
-                                    <div class="card-title">{{$task->task_name}}</div>
-                                    <hr>
-                                    <div class="card-text main-text">Due : {{$task->due_date->format('d/m/Y')}}</div>
-                                    @switch($task->status_id)
-                                        @case(1)
-                                            <div class="card-text main-text">Status : Not Started</div>
-                                            @break
-                                        @case(2)
-                                        <div class="card-text main-text">Status : Overdue</div>
-                                            @break
-                                        @case(3)
+                    @if($task->status_id != 2)
+                        @if ($task->day_due == 'Friday')
+                            <div class="card task-card">
+                                <a href="tasks/{{$task->task_id}}/edit">
+                                    <div class="card-body">
+                                        <div class="card-title">{{$task->task_name}}</div>
+                                        <hr>
+                                        <div class="card-text main-text">Due : {{$task->due_date->format('d/m/Y')}}</div>
+                                        @switch($task->status_id)
+                                            @case(1)
+                                                <div class="card-text main-text">Status : Not Started</div>
+                                                @break
+                                            @case(2)
                                             <div class="card-text main-text">Status : Completed</div>
-                                            @break
-                                        @default
-                                            @break 
-                                    @endswitch
-                                </div>
-                            </a>
-                        </div>
+                                                @break
+                                            @case(3)
+                                                <div class="card-text main-text">Status : Overdue</div>
+                                                @break
+                                            @default
+                                                @break 
+                                        @endswitch
+                                    </div>
+                                </a>
+                            </div>
+                        @endif
                     @endif
                 @endforeach
             </div>
@@ -178,29 +188,31 @@
             <div class="col-lg welcome day-card">
                 <div class="card-title">&nbsp Saturday</div>
                 @foreach ($tasks as $task)
-                    @if ($task->day_due == 'Saturday')
-                        <div class="card task-card">
-                            <a href="tasks/{{$task->task_id}}/edit">
-                                <div class="card-body">
-                                    <div class="card-title">{{$task->task_name}}</div>
-                                    <hr>
-                                    <div class="card-text main-text">Due : {{$task->due_date->format('d/m/Y')}}</div>
-                                    @switch($task->status_id)
-                                        @case(1)
-                                            <div class="card-text main-text">Status : Not Started</div>
-                                            @break
-                                        @case(2)
-                                        <div class="card-text main-text">Status : Overdue</div>
-                                            @break
-                                        @case(3)
+                    @if($task->status_id != 2)
+                        @if ($task->day_due == 'Saturday')
+                            <div class="card task-card">
+                                <a href="tasks/{{$task->task_id}}/edit">
+                                    <div class="card-body">
+                                        <div class="card-title">{{$task->task_name}}</div>
+                                        <hr>
+                                        <div class="card-text main-text">Due : {{$task->due_date->format('d/m/Y')}}</div>
+                                        @switch($task->status_id)
+                                            @case(1)
+                                                <div class="card-text main-text">Status : Not Started</div>
+                                                @break
+                                            @case(2)
                                             <div class="card-text main-text">Status : Completed</div>
-                                            @break
-                                        @default
-                                            @break 
-                                    @endswitch
-                                </div>
-                            </a>
-                        </div>
+                                                @break
+                                            @case(3)
+                                                <div class="card-text main-text">Status : Overdue</div>
+                                                @break
+                                            @default
+                                                @break 
+                                        @endswitch
+                                    </div>
+                                </a>
+                            </div>
+                        @endif
                     @endif
                 @endforeach
             </div>
@@ -209,29 +221,31 @@
             <div class="col-lg welcome day-card">
                 <div class="card-title">&nbsp Sunday</div>
                 @foreach ($tasks as $task)
-                    @if ($task->day_due == 'Sunday')
-                        <div class="card task-card">
-                            <a href="tasks/{{$task->task_id}}/edit">
-                                <div class="card-body">
-                                    <div class="card-title">{{$task->task_name}}</div>
-                                    <hr>
-                                    <div class="card-text main-text">Due : {{$task->due_date->format('d/m/Y')}}</div>
-                                    @switch($task->status_id)
-                                        @case(1)
-                                            <div class="card-text main-text">Status : Not Started</div>
-                                            @break
-                                        @case(2)
-                                        <div class="card-text main-text">Status : Overdue</div>
-                                            @break
-                                        @case(3)
+                    @if($task->status_id != 2)
+                        @if ($task->day_due == 'Sunday')
+                            <div class="card task-card">
+                                <a href="tasks/{{$task->task_id}}/edit">
+                                    <div class="card-body">
+                                        <div class="card-title">{{$task->task_name}}</div>
+                                        <hr>
+                                        <div class="card-text main-text">Due : {{$task->due_date->format('d/m/Y')}}</div>
+                                        @switch($task->status_id)
+                                            @case(1)
+                                                <div class="card-text main-text">Status : Not Started</div>
+                                                @break
+                                            @case(2)
                                             <div class="card-text main-text">Status : Completed</div>
-                                            @break
-                                        @default
-                                            @break 
-                                    @endswitch
-                                </div>
-                            </a>
-                        </div>
+                                                @break
+                                            @case(3)
+                                                <div class="card-text main-text">Status : Overdue</div>
+                                                @break
+                                            @default
+                                                @break 
+                                        @endswitch
+                                    </div>
+                                </a>
+                            </div>
+                        @endif
                     @endif
                 @endforeach
             </div>
@@ -254,30 +268,32 @@
 
     @if (Auth::user()->id == $user->id)
         @foreach ($tasks as $task)
-            <div class="row">
-                <div class="card task-card col-lg">
-                    <a href="tasks/{{$task->task_id}}/edit">
-                        <div class="card-body">
-                            <div class="card-title">{{$task->task_name}}</div>
-                            <hr>
-                            <div class="card-text main-text">Due : {{$task->due_date->format('d/m/Y')}}</div>
-                            @switch($task->status_id)
-                                @case(1)
-                                    <div class="card-text main-text">Status : Not Started</div>
-                                    @break
-                                @case(2)
-                                <div class="card-text main-text">Status : Overdue</div>
-                                    @break
-                                @case(3)
+            @if ($task->status_id != 2)
+                <div class="row">
+                    <div class="card task-card col-lg">
+                        <a href="tasks/{{$task->task_id}}/edit">
+                            <div class="card-body">
+                                <div class="card-title">{{$task->task_name}}</div>
+                                <hr>
+                                <div class="card-text main-text">Due : {{$task->due_date->format('d/m/Y')}}</div>
+                                @switch($task->status_id)
+                                    @case(1)
+                                        <div class="card-text main-text">Status : Open</div>
+                                        @break
+                                    @case(2)
                                     <div class="card-text main-text">Status : Completed</div>
-                                    @break
-                                @default
-                                    @break 
-                            @endswitch
-                        </div>
-                    </a>
+                                        @break
+                                    @case(3)
+                                        <div class="card-text main-text">Status : Overdue</div>
+                                        @break
+                                    @default
+                                        @break 
+                                @endswitch
+                            </div>
+                        </a>
+                    </div>
                 </div>
-            </div>
+            @endif
         @endforeach
     @else
         <div class="row">
