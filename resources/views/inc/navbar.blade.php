@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-md shadow-sm">
     <div class="container">
         <a class="navbar-brand" href="{{ url('/') }}">
-            {{ config('app.name', 'Laravel') }}
+            <img class="logo" src="{{asset('images/logo.png')}}">
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
             <span class="navbar-toggler-icon"></span>
@@ -11,13 +11,13 @@
             <!-- Left Side Of Navbar -->
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="{{url('/customers')}}">{{ __('Customers') }}</a>
+                    <a class="nav-link" href="{{url('/customers')}}"><img class="nav-image" src="{{asset('images/customer.png')}}"></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{url('/tasks')}}">{{ __('Tasks') }}</a>
+                    <a class="nav-link" href="{{url('/tasks')}}"><img class="nav-image" src="{{asset('images/tasks.png')}}"></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{url('/contacts')}}">{{ __('Contacts') }}</a>
+                    <a class="nav-link" href="{{url('/contacts')}}"><img class="nav-image" src="{{asset('images/contact.png')}}"></a>
                 </li>
             </ul>
 
@@ -36,12 +36,12 @@
                 @else
                 @if (Auth::user()->user_role == 3)
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('register') }}">{{ __('Create User') }}</a>
+                        <a class="nav-link" href="{{ route('register') }}"><img class="nav-image" src="{{asset('images/support.png')}}"></a>
                     </li>
                 @endif
                     <li class="nav-item dropdown">
                         <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                            {{ Auth::user()->name }} <span class="caret"></span>
+                            <img class="nav-image" src="{{asset('images/man.png')}}"> <span class="caret"></span>
                         </a>
 
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">

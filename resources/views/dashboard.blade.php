@@ -244,11 +244,13 @@
         </div>
     @endif
 </div>
+
+<div id="all_task_comment" class="row hide">
+    <p class="col-lg main-text">&nbsp; Here's all of your current tasks...</p>
+</div>
+<br>
+
 <div id="all_task_view" class="hide">
-    <div class="row">
-        <p class="col-lg main-text">&nbsp; Here's all of your current tasks...</p>
-    </div>
-    <br>
 
     @if (Auth::user()->id == $user->id)
         @foreach ($tasks as $task)

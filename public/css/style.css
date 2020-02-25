@@ -4,9 +4,23 @@ body{
 
 #page{
     background-color: rgb(1,25,54, 0.1) !important;
-    border: 2px solid rgb(1,25,54, 0.05);
+    border: 2px solid rgb(1,25,54, 0.2);
     border-radius: 6px;
-    padding: 15px;
+    padding: 15px 20px;
+}
+
+.nav-item{
+    margin: auto 15px !important;
+}
+
+.nav-image{
+    width: 2rem;
+    transform: scale(1.2) !important;
+}
+
+.logo{
+    width: 3rem;
+    transform: scale(1.5) !important;
 }
 
 nav{
@@ -57,6 +71,12 @@ a:hover{
     box-shadow: 0.25px 0.25px 8px #F51969;
 }
 
+#all_task_view{
+    background-color: rgb(1,25,54, 0.1) !important;
+    border: 2px solid rgb(1,25,54, 0.05);
+    padding: 15px 20px;
+}
+
 .change-view{
     border-radius: 6px;
     text-align: center;
@@ -94,6 +114,11 @@ a:hover{
     height: 200px;
 }
 
+.result-display{
+    margin: 0;
+    padding: 6px 12px;
+}
+
 .result-item{
     text-decoration: none;
     list-style-type: none;
@@ -121,15 +146,46 @@ a:hover{
     box-shadow: 0.25px 0.25px 8px #F51969;
 }
 
+#search-area{
+    background-color: rgb(1,25,54, 0.1) !important;
+    border: 2px solid rgb(1,25,54, 0.2);
+    border-radius: 6px;
+    padding: 15px 20px;
+}
+
+#main-area{
+    background-color: rgb(1,25,54, 0.1) !important;
+    border: 2px solid rgb(1,25,54, 0.2);
+    border-radius: 6px;
+    padding: 15px 20px;
+}
+
+.cust-btns{
+    margin: 10px 5px;
+    padding: 0 15px;
+    text-align: center;
+    background-color: rgb(245,25,105);
+    border-radius: 6px;
+    color: white !important;
+    font-family: 'Noto Sans' !important;
+    height: 27.5px;
+    transition: all .2s ease-in-out;
+}
+
+.cust-btns:hover{
+    transform: scale(1.02);
+}
+
 #cx-task-display{
     height: 75vh !important;
     background-color: white !important;
     border-radius: 6px;
-    border: 1px solid rgb(0,0,0,0.1);
-    margin: 5px;
+    border: 2px solid rgb(1,25,54, 0.2);
 }
 
-#cx-contacts{
+
+
+/* #cx-contacts{
     height: 45vh !important;
     background-color: white !important;
     border-radius: 6px;
@@ -146,6 +202,6 @@ a:hover{
 .cx-task-list{
     margin: 0 !important;
     padding: 0 !important;
-}
+}  */
 
 
