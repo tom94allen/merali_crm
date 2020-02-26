@@ -44,7 +44,7 @@ class UpdateTask extends Command
         $all_tasks = Task::all();
         foreach($all_tasks as $task){
             if($task->due_date < $today){
-                $entry = Task::where('task_id', $task->task_id)->update(['status_id' => '3']);
+                $entry = Task::where('task_id', $task->task_id)->update(['status_id' => '2']);
             }
         }
     }

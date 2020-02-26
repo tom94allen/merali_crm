@@ -23,4 +23,12 @@ Route::resource('customers', 'CustomerController');
 
 Route::resource('contacts', 'ContactsController');
 
-Route::get('/find', 'CustomerController@find');
+Route::get('/search', 'CustomerController@search');
+
+Route::get('/find', 'ContactsController@find');
+
+Route::get('tasks/create/{id}', 'TasksController@customerCreate');
+
+Route::post('tasks/store/{id}', 'TasksController@customerStore');
+
+Route::get('contacts/showcontacts/{id}', 'ContactsController@showContacts');

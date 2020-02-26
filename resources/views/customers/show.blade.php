@@ -89,7 +89,23 @@
                         </a>
                     @endforeach
                 </ol>
+                <!--Insert button that links to all contacts associated to this customer, once route is setup-->
+            </div>
+            <div id="danger-zone">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <h4 class="welcome">Danger Zone</h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6">
+                        {!! Form::open(['action' => ['CustomerController@destroy', $customer->customer_id], 'method' => 'DELETE', 'id' => 'deleteForm']) !!}
+                            {!! Form::submit('Delete Customer', ['id' => 'cust-delete']) !!}
+                        {!! Form::close() !!}
+                    </div>
+                </div>
             </div>
         </div>
+        
     </div>
 @endsection

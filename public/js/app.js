@@ -48,14 +48,14 @@ function customerView(){
 }
 
 function findCustomer(){
-    var val = document.getElementById('search_field').value;
+    var val = document.getElementById('customer_search').value;
     $.ajax({
         type: "GET",
-        url: "find",
+        url: "search",
         data: {'val': val}, 
         success: function (response) {
-            var search_field = document.getElementById('search_field');
-            var search_result = document.getElementById('search_result');
+            var search_field = document.getElementById('customer_search');
+            var search_result = document.getElementById('customer_result');
             search_result.style.display = "block";
             search_result.innerHTML = response;
             
@@ -69,4 +69,27 @@ function findCustomer(){
             console.log("AJAX error: " + textStatus + ' : ' + errorThrown);
         },
     });
+}
+
+function customerContacts(){
+    var val = document.getElementById('search_field').value;
+    $.ajax({
+        type: "GET",
+        url: "find",
+        data: {'val': val},
+        success: function(response){
+            var search_field = document.getElementById('search_field');
+            var search_result = document.getElementById('search_result');
+            search_result.style.display = "block";
+            search_result.innerHTML = response;
+            
+            if(document.activeElement != search_field){
+                search_result.style.display = "none";
+            }
+        },
+        error: function(jqXHR, textStatus, errorThrown) { // What to do if we fail
+            console.log(JSON.stringify(jqXHR));
+            console.log("AJAX error: " + textStatus + ' : ' + errorThrown);
+        },
+    })
 }

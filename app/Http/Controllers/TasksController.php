@@ -184,4 +184,40 @@ class TasksController extends Controller
         $task->delete();
         return redirect('/tasks')->with('success', 'Task Deleted');
     }
+
+    public function customerCreate($id)
+    {
+        $customer = Customer::find($id);
+        $all_cust = Customer::all();
+        $task_status = TaskStatus::all();
+        $users = User::all();
+        return view('tasks.customerCreate')->with('customer', $customer)
+                                           ->with('all_cust', $all_cust)
+                                           ->with('task_status', $task_status)
+                                           ->with('users', $users);
+    }
+
+    public function customerStore(request $request, $id)
+    {
+        $this->validate($request, [
+            'task_name' => 'required',
+            'due_date' => 'required',
+            'details' => 'required',
+            'user_id' => 'required',
+            'status_id' => 'required',
+        ]);
+        
+
+        $task = new Task;
+        $task->task_name = $request->input('task_name');
+        $task->due_date = $request->input('due_date');
+        $task->details = $request->input('details');
+        $task->user_id = $request->input('user_id');
+        $task->status_id = $request->input('status_id');
+        $task->customer_id = $id;
+        
+        $task->save();
+
+        return redirect('customers/'.$id)->with('success', 'Task added for this customer');
+    }
 }

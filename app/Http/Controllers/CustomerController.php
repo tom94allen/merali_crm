@@ -127,7 +127,13 @@ class CustomerController extends Controller
      */
     public function edit($id)
     {
-        return "hello!";
+        $customer = Customer::find($id);
+        $cust_status = CustomerStatus::all();
+        $users = User::all();
+
+        return view('customers.edit')->with('customer', $customer)
+                                     ->with('cust_status', $cust_status)
+                                     ->with('users', $users);
     }
 
     /**
@@ -139,7 +145,25 @@ class CustomerController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $customer = Customer::find($id);
+        $customer->name = $request->input('name');
+        $customer->address_line1 = $request->input('address_line1');
+        $customer->town = $request->input('town');
+        $customer->postcode = $request->input('postcode');
+        if($request->input('email')){
+            $customer->email = $request->input('email');
+        }
+        else{
+            $customer->email = NULL;
+        }
+        $customer->telephone = $request->input('telephone');
+        $customer->owner = $request->input('owner');
+        $customer->status = $request->input('status');
+        $customer->contact_name = $request->input('contact_name');
+        $customer->contact_role = $request->input('contact_role');
+        $customer->save();
+
+        return redirect('/customers')->with('success', 'Customer Updated');
     }
 
     /**
@@ -150,10 +174,26 @@ class CustomerController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $customer = Customer::find($id);
+        $cust_tasks = Task::where('customer_id', "{$id}")->get();
+        $cust_contacts = Contact::where('customer_id', "{$id}")->get();
+        if(!empty($cust_tasks)){
+            foreach($cust_tasks as $task){
+                $task->delete();
+            }   
+        }
+        if(!empty($cust_contacts)){
+            foreach($cust_contacts as $contact){
+                $contact->delete();
+            }
+            
+        }
+        $customer->delete();
+
+        return redirect('customers')->with('success', 'Customer Deleted');
     }
     
-    public function find(Request $request)
+    public function search(Request $request)
     {
         //ajax method used for search field on customers index view
 
@@ -168,7 +208,6 @@ class CustomerController extends Controller
         }
         $output .= '</ul>'; 
         return $output;
-        
     }
 
 }
