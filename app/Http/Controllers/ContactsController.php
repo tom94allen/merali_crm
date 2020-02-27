@@ -144,7 +144,19 @@ class ContactsController extends Controller
 
     public function showContacts($id)
     {
-        return "hello";
+        //get references to necessary data
+        $customer = Customer::find($id);
+        $query = $customer->customer_id;
+        $cust_contacts = Contact::where('customer_id', "{$query}")->get();
+        $con_type = ContactType::all();
+        $users = User::all();
+
+        //parse to view
+        return view('contacts.showContacts')->with('customer', $customer)
+                                            ->with('cust_contacts', $cust_contacts)
+                                            ->with('con_type', $con_type)
+                                            ->with('users', $users);
+
     }
 
     public function customerCreate($id)
