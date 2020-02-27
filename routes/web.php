@@ -32,3 +32,7 @@ Route::get('tasks/create/{id}', 'TasksController@customerCreate');
 Route::post('tasks/store/{id}', 'TasksController@customerStore');
 
 Route::get('contacts/showcontacts/{id}', 'ContactsController@showContacts');
+
+Route::get('contacts/create/{id}', 'ContactsController@customerCreate');
+
+Route::post('contacts/store/{id}', 'ContactsController@customerStore');

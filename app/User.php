@@ -43,6 +43,10 @@ class User extends Authenticatable
         return $this->hasMany('App\Task', 'task_id');
     }
 
+    public function contact(){
+        return $this->hasMany('App\Contact', 'created_by');
+    }
+
     public function customer(){
         return $this->hasMany('App\Customer', 'customer_id');
     }

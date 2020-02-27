@@ -37,7 +37,12 @@ class ContactsController extends Controller
      */
     public function create()
     {
-        //
+        $cont_type = ContactType::all();
+        $customers = Customer::all();
+
+        return view('contacts.create')->with('cont_type', $cont_type)
+                                      ->with('customers', $customers);
+        
     }
 
     /**
@@ -48,7 +53,18 @@ class ContactsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //new DB instance
+        $contact = new Contact;
+        //get references to the data
+        $contact->type_id = $request->input('type_id');
+        $contact->customer_id = $request->input('customer_id');
+        $contact->details = $request->input('details');
+        $contact->created_by = Auth::user()->id;
+        //save
+        $contact->save();
+
+        //redirect to contact dashboard parsing success message
+        return redirect('contacts')->with('success', 'Contact Created');
     }
 
     /**
@@ -59,7 +75,20 @@ class ContactsController extends Controller
      */
     public function show($id)
     {
-        return "hello";
+        //reference to specific contact parsed from previous view
+        $con = Contact::find($id);
+        $type_id = $con['type_id'];
+        $cust_id = $con['customer_id'];
+        $user_id = $con['created_by'];
+        //references to info required to display on show view
+        $con_type = ContactType::find($type_id);
+        $customer = Customer::find($cust_id);
+        $created_by = User::find($user_id);
+
+        return view('contacts.show')->with('con', $con)
+                                    ->with('con_type', $con_type)
+                                    ->with('customer', $customer)
+                                    ->with('created_by', $created_by);
     }
 
     /**
@@ -116,5 +145,32 @@ class ContactsController extends Controller
     public function showContacts($id)
     {
         return "hello";
+    }
+
+    public function customerCreate($id)
+    {
+        //get necessary references
+        $customer = Customer::find($id);
+        $con_type = ContactType::all();
+        //return
+        return view('contacts.customerCreate')->with('customer', $customer)
+                                              ->with('con_type', $con_type);
+    }
+
+    public function customerStore(Request $request, $id)
+    {
+        //new instance of table
+        $con = new Contact;
+        //parse info to correct columns
+        $con->type_id = $request->input('type_id');
+        $con->details = $request->input('details');
+        $con->customer_id = $id;
+        $con->created_by = Auth::user()->id;
+        //save
+        $con->save();
+        //redirect with success message
+        return redirect('customers/'.$id)->with('success', 'Contact created for this customer');
+
+
     }
 }

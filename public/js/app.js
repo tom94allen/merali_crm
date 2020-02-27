@@ -93,3 +93,18 @@ function customerContacts(){
         },
     })
 }
+
+//used to vertically align text in center of div to line up with images
+function verAlign(){
+    $('#ver-align').each(function(){
+        $(this).css({
+            'line-height' : $(this).height() + 'px'
+        });
+        
+    });
+}
+
+//executing the above on ready of page
+$(document).ready(function(){
+    verAlign();
+});

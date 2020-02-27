@@ -45,7 +45,7 @@
         </div>
         <div class="form-group">
             {!! Form::submit('Create Task', ['class' => ['change-view', 'col-lg-3']]) !!}
-        <a href="{{url('customers/'.$customer->customer_id)}}" class="change-view col-lg-3">{{ __('Go Back') }}</a>
+            <a href="{{url()->previous()}}" class="change-view col-lg-3">{{ __('Go Back') }}</a>
         </div>
     {!! Form::close() !!}
         

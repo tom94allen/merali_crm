@@ -3,10 +3,11 @@
 @section('content')
     <div id="page" class="col-lg">
         <div class="row">
-            <h1 class="col-lg-5 welcome" style="text-decoration:underline">{{$customer->name}}</h1>
+            <h1 class="col-lg-3 welcome" style="text-decoration:underline">{{$customer->name}}</h1>
             <a class="col-lg-2 cust-btns" href='../customers/{{$customer->customer_id}}/edit'>Edit Customer</a>
             <a class="col-lg-2 cust-btns" href='../tasks/create/{{$customer->customer_id}}'>Create Task</a>
             <a class="col-lg-2 cust-btns" href='../contacts/create/{{$customer->customer_id}}'>Create Contact</a>
+            <a class="col-lg-2 cust-btns" href='{{url()->previous()}}'>Go Back</a>
         </div>
         <br>
 
@@ -84,8 +85,21 @@
                 <hr>
                 <ol>
                     @foreach ($contacts_five as $contact)
-                        <a href="../contacts/{{$contact->contact_id}}/edit">
-                            <li>{{$contact->details}} on {{$contact->created_at->format('d/m/Y')}}</li>
+                        <a href="../contacts/{{$contact->contact_id}}">
+                            @switch($contact->type_id)
+                                @case(1)
+                                    <li>Phone call on {{$contact->created_at->format('d/m/Y')}}</li>
+                                    @break
+                                @case(2)
+                                    <li>Email on {{$contact->created_at->format('d/m/Y')}}</li>
+                                    @break
+                                @case(2)
+                                    <li>Spoke face to face on {{$contact->created_at->format('d/m/Y')}}</li>
+                                    @break
+                                @default
+                                    
+                            @endswitch
+                            
                         </a>
                     @endforeach
                 </ol>
@@ -93,12 +107,12 @@
             </div>
             <div id="danger-zone">
                 <div class="row">
-                    <div class="col-lg-6">
+                    <div class="col-lg">
                         <h4 class="welcome">Danger Zone</h4>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-lg-6">
+                    <div class="col-lg">
                         {!! Form::open(['action' => ['CustomerController@destroy', $customer->customer_id], 'method' => 'DELETE', 'id' => 'deleteForm']) !!}
                             {!! Form::submit('Delete Customer', ['id' => 'cust-delete']) !!}
                         {!! Form::close() !!}

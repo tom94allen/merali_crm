@@ -15,6 +15,10 @@ class Contact extends Model
         return $this->belongsTo('App\Customer');
     }
 
+    public function users(){
+        return $this->belongsTo('App\User');
+    }
+
     public function contactType(){
         return $this->hasOne('App\ContactType', 'type_id');
     }

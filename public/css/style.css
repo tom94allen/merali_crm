@@ -197,7 +197,6 @@ a:hover{
 }
 
 #customer_info{
-    height: 30vh !important;
     background-color: white !important;
     border-radius: 6px;
     border: 2px solid rgb(1,25,54, 0.2);
@@ -225,14 +224,12 @@ a:hover{
 }
 
 #cx-task-display{
-    height: 75vh !important;
     background-color: white !important;
     border-radius: 6px;
     border: 2px solid rgb(1,25,54, 0.2);
 }
 
 #cx-contacts{
-    height: 50vh !important;
     background-color: white !important;
     border-radius: 6px;
     border: 2px solid rgb(1,25,54, 0.2);
@@ -257,8 +254,7 @@ ol li:hover{
 }
 
 #danger-zone{
-    height: 15vh;
-    width: 50%;
+    width: 25%;
     background-color: white;
     margin: 10px 0;
     padding: 15px;
@@ -304,6 +300,52 @@ ol li:hover{
     margin: auto;
     background-color: #F51969;
     transition: all .2s ease-in-out;
+}
+
+#top-summary{
+    padding: 15px;
+    border: 2px solid rgb(1,25,54, 0.05);
+    border-radius: 6px;
+    background-color: rgb(1,25,54, 0.1) !important;
+}
+
+#white-back{
+    padding: 10px;
+    border: 2px solid rgb(1,25,54, 0.2);
+    border-radius: 6px;
+    background-color: white;
+}
+
+.con-image{
+    width: 5rem;
+    transform: scale(1.2);
+    margin: 5px auto;
+    padding: 5px;
+}
+
+#contact-detail{
+    padding: 15px;
+    border: 2px solid rgb(1,25,54, 0.05);
+    border-radius: 6px;
+    background-color: rgb(1,25,54, 0.1) !important;
+}
+
+.contact-body{
+    padding: 15px;
+    border: 2px solid rgb(1,25,54, 0.2);
+    border-radius: 6px;
+}
+
+#delete-con-form{
+    width: 100%;
+}
+
+#con-delete{
+    width: 50% !important;
+    border-radius: 6px;
+    color: white !important;
+    font-family: 'Noto Sans' !important;
+    background-color: #F51969 !important;
 }
 
 
