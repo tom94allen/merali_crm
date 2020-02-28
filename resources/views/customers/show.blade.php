@@ -104,6 +104,11 @@
                     @endforeach
                 </ol>
                 <!--Insert button that links to all contacts associated to this customer, once route is setup-->
+                <br><br>
+                <div class="row">
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <a class="col-lg-4 cust-btns" href='../contacts/showcontacts/{{$customer->customer_id}}'>View All</a>
+                </div>
             </div>
             <div id="danger-zone">
                 <div class="row">

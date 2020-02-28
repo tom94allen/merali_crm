@@ -154,6 +154,10 @@ a:hover{
 
 #main-area{
     margin-top: 25px;
+    background-color: rgb(1,25,54, 0.1) !important;
+    border: 2px solid rgb(1,25,54, 0.2);
+    border-radius: 6px;
+    padding: 15px 20px;
 }
 
 .customer-card{
@@ -167,13 +171,6 @@ a:hover{
 }
 
 #search-area{
-    background-color: rgb(1,25,54, 0.1) !important;
-    border: 2px solid rgb(1,25,54, 0.2);
-    border-radius: 6px;
-    padding: 15px 20px;
-}
-
-#main-area{
     background-color: rgb(1,25,54, 0.1) !important;
     border: 2px solid rgb(1,25,54, 0.2);
     border-radius: 6px;
@@ -348,8 +345,38 @@ ol li:hover{
     background-color: #F51969 !important;
 }
 
+#filter-by{
+    background-color: rgb(1,25,54, 0.1) !important;
+    border: 2px solid rgb(1,25,54, 0.2);
+    border-radius: 6px;
+    padding: 15px 20px;
+}
 
+#filter-results{
+    margin-top: 25px;
+    background-color: rgb(1,25,54, 0.1) !important;
+    border: 2px solid rgb(1,25,54, 0.2);
+    border-radius: 6px;
+    padding: 15px 20px;
+}
 
+.modal{
+    border: 2px solid rgb(1,25,54, 0.2);
+    box-shadow: 0.25px 0.25px 2px rgb(245,25,105, 0.3);
+}
+
+.modal-title{
+    font-family: 'Montserrat', sans-serif ;
+}
+
+.modal-header{
+    background-color: rgb(1,25,54, 0.1) !important;
+    border-bottom: 2px solid rgb(1,25,54, 0.2);
+}
+
+.modal-body{
+    background-color: rgb(194,234,189, 0.2) !important
+}
 
 
 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Collection;
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
@@ -150,11 +151,12 @@ class ContactsController extends Controller
         $cust_contacts = Contact::where('customer_id', "{$query}")->get();
         $con_type = ContactType::all();
         $users = User::all();
-
+        $error = '';
         //parse to view
         return view('contacts.showContacts')->with('customer', $customer)
                                             ->with('cust_contacts', $cust_contacts)
                                             ->with('con_type', $con_type)
+                                            ->with('error', $error)
                                             ->with('users', $users);
 
     }
@@ -183,6 +185,111 @@ class ContactsController extends Controller
         //redirect with success message
         return redirect('customers/'.$id)->with('success', 'Contact created for this customer');
 
+
+    }
+
+    public function advancedSearch(Request $request, $id)
+    {
+        
+        //get references
+        $date_from = $request->input('date_from');
+        $date_to = $request->input('date_to');
+        $created_by = $request->input('created_by');
+        $type_id = $request->input('type_id');
+        $customer = Customer::find($id);
+        $query = $customer->customer_id;
+        $cust_contacts = Contact::where('customer_id', "{$query}")->get();
+        $con_type = ContactType::all();
+        $users = User::all();
+        $query_data = array(
+            'date_from' => '',
+            'date_to' => '',
+            'created_by' => '',
+            'type_id' => '',
+        );
+        //ensure one field is filled out otherwise return view with error message
+        if(!$date_from && !$date_to && !$created_by && !$type_id){
+            $error = 'At least one field is required!';
+            return view('contacts.showContacts')->with('error', $error)
+                                                ->with('customer', $customer)
+                                                ->with('cust_contacts', $cust_contacts)
+                                                ->with('con_type', $con_type)
+                                                ->with('users', $users);
+        }
+        else{
+            $error = '';
+            //push necessary vars to $query_data array if not null
+            if($date_from != null){
+                $query_data['date_from']= $date_from;
+            }
+            if($date_to !=null){
+                $query_data['date_to']= $date_to;
+            }
+            if($created_by != null){
+                $query_data['created_by'] = $created_by;
+            }
+            if($type_id != null){
+                $query_data['type_id'] = $type_id;
+            }
+            // echo '<pre>';print_r($query_data);exit;
+            $output = "SELECT * from contacts where";
+            foreach($query_data as $k => $data){
+                if($query_data[$k]){
+                    switch ($k) {
+                        case 'date_from':
+                            $pieces = explode(' ', $output);
+                            $lw = array_pop($pieces);
+                            if($lw == "where"){
+                                $output .= ' created_at >= "'.$query_data[$k].'"';
+                                break;
+                            }
+                            else{
+                                $output .= 'AND created_at >= "'.$query_data[$k].'"';
+                                break;
+                            }
+                        case 'date_to':
+                            $pieces = explode(' ', $output);
+                            $lw = array_pop($pieces);
+                            if($lw == "where"){
+                                $output .= ' created_at <= "'.$query_data[$k].'"';
+                                break;
+                            }
+                            else{
+                                $output .= ' AND created_at <= "'.$query_data[$k].'"';
+                                break;
+                            }
+                        case 'created_by':
+                            $pieces = explode(' ', $output);
+                            $lw = array_pop($pieces);
+                            if($lw == "where"){
+                                $output .= ' created_by = "'.$query_data[$k].'"';
+                                break;
+                            }
+                            else{
+                                $output .= ' AND created_by = "'.$query_data[$k].'"';
+                                break;
+                            }
+                        case 'type_id':
+                            $pieces = explode(' ', $output);
+                            $lw = array_pop($pieces);
+                            if($lw == "where"){
+                                $output .= ' type_id = "'.$query_data[$k].'"';
+                                break;
+                            }
+                            else{
+                                $output .= ' AND type_id = "'.$query_data[$k].'"';
+                                break;
+                            }
+                        default:
+                            break;
+                    }
+                }
+            }
+            return $output;
+
+        }
+        
+        
 
     }
 }
