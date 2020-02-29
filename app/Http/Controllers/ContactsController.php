@@ -232,61 +232,40 @@ class ContactsController extends Controller
                 $query_data['type_id'] = $type_id;
             }
             // echo '<pre>';print_r($query_data);exit;
-            $output = "SELECT * from contacts where";
+            $output = ''.$customer->customer_id.'';
             foreach($query_data as $k => $data){
                 if($query_data[$k]){
                     switch ($k) {
                         case 'date_from':
-                            $pieces = explode(' ', $output);
-                            $lw = array_pop($pieces);
-                            if($lw == "where"){
-                                $output .= ' created_at >= "'.$query_data[$k].'"';
-                                break;
-                            }
-                            else{
-                                $output .= 'AND created_at >= "'.$query_data[$k].'"';
-                                break;
-                            }
+                            $output .= ' AND created_at >= "'.$query_data[$k].'"';
+                            break;
                         case 'date_to':
-                            $pieces = explode(' ', $output);
-                            $lw = array_pop($pieces);
-                            if($lw == "where"){
-                                $output .= ' created_at <= "'.$query_data[$k].'"';
-                                break;
-                            }
-                            else{
-                                $output .= ' AND created_at <= "'.$query_data[$k].'"';
-                                break;
-                            }
+                            $output .= ' AND created_at <= "'.$query_data[$k].'"';
+                            break;
                         case 'created_by':
-                            $pieces = explode(' ', $output);
-                            $lw = array_pop($pieces);
-                            if($lw == "where"){
-                                $output .= ' created_by = "'.$query_data[$k].'"';
-                                break;
-                            }
-                            else{
-                                $output .= ' AND created_by = "'.$query_data[$k].'"';
-                                break;
-                            }
+                            $output .= ' AND created_by = '.$query_data[$k].'';
+                            break;
                         case 'type_id':
-                            $pieces = explode(' ', $output);
-                            $lw = array_pop($pieces);
-                            if($lw == "where"){
-                                $output .= ' type_id = "'.$query_data[$k].'"';
-                                break;
-                            }
-                            else{
-                                $output .= ' AND type_id = "'.$query_data[$k].'"';
-                                break;
-                            }
+                            $output .= ' AND type_id = '.$query_data[$k].'';
+                            break;
                         default:
                             break;
                     }
                 }
             }
-            return $output;
-
+            $results = DB::select(DB::raw('select * from contacts where customer_id = '.$output));
+            if($results){
+                $cust_contacts = '';
+            }
+            else{
+                $error = 'No results could be found';
+            }
+            return view('contacts.showContacts')->with('cust_contacts', $cust_contacts)
+                                                ->with('customer', $customer)
+                                                ->with('con_type', $con_type)
+                                                ->with('results', $results)
+                                                ->with('users', $users)
+                                                ->with('error', $error);
         }
         
         
