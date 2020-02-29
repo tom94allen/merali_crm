@@ -30,9 +30,9 @@
                 <button style="margin:0 !important;" type="button" class="cust-btns" data-toggle="modal" data-target="#filter-form">
                     Advanced Search
                 </button>
-                <button style="margin:0 0 0 10px !important;" type="button" class="cust-btns">
+                <a style="margin:0 0 0 10px !important;" href='../showcontacts/{{$customer->customer_id}}' class="cust-btns">
                     Remove Filters
-                </button>
+                </a>
             </div>
         </div>
     </div>
@@ -58,7 +58,7 @@
                                 <p class="card-text main-text" style="text-align:center">{{$contact->created_at->format('d/m/Y')}}</p>
                                 <p class="card-text main-text" style="text-align:center">{{$customer->name}}</p>
                                 <div class="text-center">
-                                    <a href="contacts/{{$contact->contact_id}}" class="main-text contact-view">View Contact</a>
+                                    <a href="../{{$contact->contact_id}}" class="main-text contact-view">View Contact</a>
                                 </div>
                             </div>
                     </div>
@@ -139,6 +139,7 @@
           </div>
         </div>
       </div>
-        
+    </div>
+</div> 
 <script src="{{ asset('js/app.js') }}" defer></script>
 @endsection
