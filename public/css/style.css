@@ -2,6 +2,12 @@ body{
     background-color: rgb(194,234,189, 0.2) !important;
 }
 
+.login-banner{
+    background-color: rgb(1,25,54, 0.1) !important;
+    border: 2px solid rgb(1,25,54, 0.2) !important;
+    padding: 15px;
+}
+
 hr{
     background-color: rgb(245,25,105, 0.6) !important;
 }
@@ -182,6 +188,7 @@ a:hover{
     padding: 0 15px;
     text-align: center;
     background-color: rgb(245,25,105);
+    border: 1px solid rgb(245,25,105, 0.5);
     border-radius: 6px;
     color: white !important;
     font-family: 'Noto Sans' !important;
