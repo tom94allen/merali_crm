@@ -38,3 +38,7 @@ Route::get('contacts/create/{id}', 'ContactsController@customerCreate');
 Route::post('contacts/store/{id}', 'ContactsController@customerStore');
 
 Route::get('contacts/advancedsearch/{id}', 'ContactsController@advancedSearch');
+
+Route::get('/imports', 'ImportsController@index');
+
+Route::post('imports/import', 'ImportsController@import');
