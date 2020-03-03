@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Imports\CustomersImport;
-use Maatwebsite\Excel\Facades\Excel;
+use App\Imports\CustomerImport;
 use App\Customer;
+use Maatwebsite\Excel\Facades\Excel;
+use DB;
 
 
 class ImportsController extends Controller
@@ -28,8 +29,11 @@ class ImportsController extends Controller
             'import_file' => 'required',
         ]);
 
-        Excel::import(new CustomersImport, request()->file('import_file'));
-        return back();
+        $file = $request->file('import_file')->getRealPath();
+
+        $data = Excel::import(new CustomerImport,  $file);
+        return back()->with('success', 'Customers Imported');
+        
     }
 }
 

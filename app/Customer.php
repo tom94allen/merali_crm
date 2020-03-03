@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class Customer extends Model
 {
 
+    public $fillable = ['name', 'address_line1', 'town', 'postcode', 'email', 'telephone', 'owner', 'status', 'contact_name', 'contact_role'];
+
     public $primaryKey = 'customer_id';
 
     public $table = 'customers';
