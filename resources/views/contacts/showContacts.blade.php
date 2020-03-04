@@ -82,7 +82,7 @@
                                 <p class="card-text main-text" style="text-align:center">{{$contact->created_at}}</p>
                                 <p class="card-text main-text" style="text-align:center">{{$customer->name}}</p>
                                 <div class="text-center">
-                                    <a href="contacts/{{$contact->contact_id}}" class="main-text contact-view">View Contact</a>
+                                <a href="{{url('/contacts', [$contact->contact_id])}}" class="main-text contact-view">View Contact</a>
                                 </div>
                             </div>
                     </div>

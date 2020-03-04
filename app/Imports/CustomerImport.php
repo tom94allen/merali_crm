@@ -2,10 +2,11 @@
 
 namespace App\Imports;
 
+use App\Customer;
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\ToCollection;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
-use App\Customer;
+
 
 class CustomerImport implements ToCollection,WithHeadingRow
 {

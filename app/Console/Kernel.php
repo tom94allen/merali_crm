@@ -14,6 +14,7 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         'App\Console\Commands\UpdateTask',
+        'App\Console\Commands\UpdateContactId',
     ];
 
     /**
@@ -25,6 +26,9 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule->command('update:task')
+                 ->everyMinute();
+
+        $schedule->command('update:contactid')
                  ->everyMinute();
     }
 

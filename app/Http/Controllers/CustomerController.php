@@ -11,7 +11,7 @@ use App\TaskStatus;
 use App\Contact;
 use App\ContactType;
 use App\User;
-
+use DB;
 class CustomerController extends Controller
 {
     public function __construct()

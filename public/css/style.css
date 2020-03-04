@@ -130,14 +130,12 @@ a:hover{
     font-family: 'Noto Sans' !important;
     display: none;
     background-color: white;
-    height: 200px;
 }
 
 #search_result{
     font-family: 'Noto Sans' !important;
     display: none;
     background-color: white;
-    height: 200px;
 }
 
 .result-display{
@@ -387,7 +385,6 @@ ol li:hover{
 
 #import-img{
     margin: auto;
-    text-emphasis:;
 }
 
 
