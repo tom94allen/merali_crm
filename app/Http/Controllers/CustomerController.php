@@ -30,12 +30,17 @@ class CustomerController extends Controller
         
         //get necessary info from DB
         $user = Auth::user();
+        $users = User::all();
         $customers = Customer::orderBy('name', 'ASC')->get();
         $cust_status = CustomerStatus::all();
-    
+        $sectors = SectorType::all();
+        $error='';
         //return view parsing necessary vars
         return view('customers.index')->with('user', $user)
                                       ->with('customers', $customers)
+                                      ->with('users', $users)
+                                      ->with('sectors', $sectors)
+                                      ->with('error', $error)
                                       ->with('cust_status', $cust_status);
 
 
@@ -223,6 +228,51 @@ class CustomerController extends Controller
         }
         $output .= '</ul>'; 
         return $output;
+    }
+
+    public function custAdvancedSearch(Request $request)
+    {
+        //get references to form input sent by user
+        $owner = $request->input('owner');
+        $sector = $request->input('sector');
+        //create blank error variable that can be parsed to view if no options selected
+        $error = '';
+        //find results matching this criteria in DB
+        if(!$owner && !$sector){
+            $error = 'At least one field is required!';
+            return back()->with('error', $error);
+        }
+        elseif(!$owner && $sector){
+            $results = Customer::where('sector', $sector)
+                                ->where('active_ind', 1)
+                                ->get();
+            if(!$results){
+                $results = 'No results found that match this criteria!';
+                return view('customers.custAdvancedSearch')->with('results', $results);
+            }
+            return view('customers.custAdvancedSearch')->with('results', $results);
+        }
+        elseif($owner && !$sector){
+            $results = Customer::where('owner', $owner)
+                                ->where('active_ind', 1)
+                                ->get();
+            if(!$results){
+                $results = 'No results found that match this criteria!';
+                return view('customers.custAdvancedSearch')->with('results', $results);
+            }
+            return view('customers.custAdvancedSearch')->with('results', $results);
+        }
+        elseif($owner && $sector){
+            $results = Customer::where('sector', $sector)
+                                ->where('owner', $owner)
+                                ->where('active_ind', 1)
+                                ->get();
+            if(!$results){
+                $results = 'No results found that match this criteria!';
+                return view('customers.custAdvancedSearch')->with('results', $results);
+            }
+            return view('customers.custAdvancedSearch')->with('results', $results);
+        }
     }
 
 }

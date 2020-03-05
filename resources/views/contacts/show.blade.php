@@ -55,7 +55,11 @@
     <br>
     <div class="row">
         &nbsp;&nbsp;&nbsp;&nbsp;
-        <a href='../contacts/{{$con->contact_id}}/edit' id="cust-delete" style="padding:5px 15px">Edit Contact</a>
+        <a href='../contacts/{{$con->contact_id}}/edit' id="cust-delete" style="margin: 5px !important; padding: 5px !important">Edit Contact</a>
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        {!! Form::open(['action' => ['ContactsController@destroy', $con->contact_id], 'method' => 'DELETE', 'id' => 'deleteForm']) !!}
+            {!! Form::submit('Delete Contact', ['class' => ['change-view']]) !!}
+        {!! Form::close() !!}
     </div>
 <script src="{{ asset('js/app.js') }}" defer></script>
 @endsection

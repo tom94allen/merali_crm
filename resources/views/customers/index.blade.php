@@ -9,6 +9,9 @@
     <div class="row">
         <button id="view_button" class="col-lg-2 main-text change-view" onclick="customerView()">View All Customers</button>
         <a class="col-lg-2 main-text change-view" href="{{url('customers/create')}}">{{ __('Add Customer') }}</a>
+        <button style="" type="button" class="col-lg-2 main-text change-view" data-toggle="modal" data-target="#search-form">
+            Advanced Search
+        </button>
     </div>
     <br>
 
@@ -47,6 +50,45 @@
                 </div>
             @endif
         @endforeach
+    </div>
+
+    <div class="modal fade" id="search-form" tabindex="-1" role="dialog" aria-labelledby="search-formTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLongTitle">Advanced Search</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+                {!! Form::open(['action' => 'CustomerController@custAdvancedSearch', 'method' => 'GET', 'class' => 'col-lg', 'style' => 'margin:auto']) !!}
+                    <div class="row">
+                        <div class="col">
+                            &nbsp;{!! Form::label('owner', 'Owner', ['class' => 'main-text', 'style' => 'width:50%']) !!}
+                            <select name="owner" class="main-text form-control">
+                                <option value="">Please Select</option>
+                                @foreach ($users as $user)
+                                    <option value="{{$user->id}}">{{$user->name}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="col">
+                            &nbsp;{!! Form::label('sector', 'Sector', ['class' => 'main-text', 'style' => 'width:50%']) !!}
+                            <select name="sector" class="main-text form-control">
+                                <option value="">Please Select</option>
+                                @foreach ($sectors as $sector)
+                                    <option value="{{$sector->sector_id}}">{{$sector->name}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <button type="button" class="cust-btns" style="margin: 10px 5px 10px 0" data-dismiss="modal">Close</button>
+                    {!! Form::submit('Apply Filter', ['type' => 'button', 'class' => 'cust-btns']) !!}
+                {!! Form::close() !!}
+            </div>
+          </div>
+        </div>
     </div>
 
 <script src="{{ asset('js/app.js') }}" defer></script>

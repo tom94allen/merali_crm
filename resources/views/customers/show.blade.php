@@ -11,10 +11,10 @@
     <div id="page" class="col-lg">
         <div class="row">
             <h1 class="col-lg-3 welcome" style="text-decoration:underline">{{$customer->name}}</h1>
-            <a class="col-lg-2 cust-btns" href='../customers/{{$customer->customer_id}}/edit'>Edit Customer</a>
-            <a class="col-lg-2 cust-btns" href='../tasks/create/{{$customer->customer_id}}'>Create Task</a>
-            <a class="col-lg-2 cust-btns" href='../contacts/create/{{$customer->customer_id}}'>Create Contact</a>
-            <a class="col-lg-2 cust-btns" href='{{url()->previous()}}'>Go Back</a>
+            <a class="col-lg-2 cust-btns" @if($customer->active_ind == 0) href="" @else href='../customers/{{$customer->customer_id}}/edit' @endif>Edit Customer</a>
+            <a class="col-lg-2 cust-btns" @if($customer->active_ind == 0) href="" @else href='../tasks/create/{{$customer->customer_id}}' @endif>Create Task</a>
+            <a class="col-lg-2 cust-btns" @if($customer->active_ind == 0) href="" @else href='../contacts/create/{{$customer->customer_id}}' @endif>Create Contact</a>
+            <a class="col-lg-2 cust-btns" @if($customer->active_ind == 0) href="{{url('customers')}}" @else href='{{url()->previous()}}' @endif>Go Back</a>
         </div>
         <br>
 
@@ -99,7 +99,7 @@
                                 @case(2)
                                     <li>Email on {{$contact->created_at->format('d/m/Y')}}</li>
                                     @break
-                                @case(2)
+                                @case(3)
                                     <li>Spoke face to face on {{$contact->created_at->format('d/m/Y')}}</li>
                                     @break
                                 @default
@@ -113,7 +113,7 @@
                 <br><br>
                 <div class="row">
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <a class="col-lg-4 cust-btns" href='../contacts/showcontacts/{{$customer->customer_id}}'>View All</a>
+                    <a class="col-lg-4 cust-btns" @if($customer->active_ind ==0) href="" @else href='../contacts/showcontacts/{{$customer->customer_id}}' @endif>View All</a>
                 </div>
             </div>
             <div id="danger-zone">

@@ -108,7 +108,17 @@ class ContactsController extends Controller
      */
     public function edit($id)
     {
-        return "hello";
+        //get references to necessary info
+        $contact = Contact::find($id);
+        $cont_type = ContactType::all();
+        $customers = Customer::where('active_ind', 1)
+                               ->orderBy('name', 'ASC')
+                               ->get();
+
+        // return view and parse required variables
+        return view('contacts.edit')->with('contact', $contact)
+                                    ->with('cont_type', $cont_type)
+                                    ->with('customers', $customers);
     }
 
     /**
@@ -120,7 +130,19 @@ class ContactsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        //find the respective contact in db
+        $contact = Contact::find($id);
+        //update the relevant column values from the input
+        $contact->type_id = $request->input('type_id');
+        $contact->customer_id = $request->input('customer_id');
+        $contact->details = $request->input('details');
+        $contact->created_by = Auth::user()->id;
+        //save and redirect to view with success message
+        $contact->save();
+        return redirect('contacts')->with('success', 'Contact Edited');
+
+
+
     }
 
     /**
@@ -131,7 +153,12 @@ class ContactsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        //find the respective contact in DB
+        $contact = Contact::find($id);
+        $contact->delete();
+
+        //redirect to main contact view with success message
+        return redirect('contacts')->with('success', 'Contact Deleted');
     }
 
     public function find(Request $request)
