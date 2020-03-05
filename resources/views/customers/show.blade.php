@@ -1,6 +1,13 @@
 @extends('layouts.app')
 
 @section('content')
+    @if ($customer->active_ind == 0)
+        <div class="row">
+            <div class="col-lg">
+                <h1 class="welcome text-center">Customer is deactivated</h1>
+            </div>
+        </div>
+    @endif
     <div id="page" class="col-lg">
         <div class="row">
             <h1 class="col-lg-3 welcome" style="text-decoration:underline">{{$customer->name}}</h1>
@@ -31,13 +38,12 @@
                             @endif
                         @endforeach
                         &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;           
-                        <aside class="col-lg-1 table-label">Contacted</aside>
-                        @if (!empty($last_contact))
-                            <aside class="col-lg-2 table-item">{{$last_contact->created_at->format('d/m/Y')}}</aside>
-                        @else
-                            <aside class="col-lg-2 table-item">None made yet</aside>
-                        @endif
-                        
+                        <aside class="col-lg-1 table-label">Sector</aside>
+                        @foreach ($sectors as $sector)
+                            @if ($sector->sector_id == $customer->sector)
+                                <aside class="col-lg-2 table-item">{{$sector->name}}</aside>
+                            @endif
+                        @endforeach
                     </div>
                     <br>
                     <div class="row">
@@ -116,15 +122,16 @@
                         <h4 class="welcome">Danger Zone</h4>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-lg">
-                        {!! Form::open(['action' => ['CustomerController@destroy', $customer->customer_id], 'method' => 'DELETE', 'id' => 'deleteForm']) !!}
-                            {!! Form::submit('Delete Customer', ['id' => 'cust-delete']) !!}
-                        {!! Form::close() !!}
+                @if($customer->active_ind != 0)
+                    <div class="row">
+                        <div class="col-lg">
+                            {!! Form::open(['action' => ['CustomerController@deactivate', $customer->customer_id], 'method' => 'POST', 'id' => 'deleteForm']) !!}
+                                {!! Form::submit('Deactivate Customer', ['id' => 'cust-delete']) !!}
+                            {!! Form::close() !!}
+                        </div>
                     </div>
-                </div>
+                @endif
             </div>
         </div>
-        
     </div>
 @endsection

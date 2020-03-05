@@ -28,6 +28,7 @@ class CustomerImport implements ToCollection,WithHeadingRow
                 'status' => $row['status'],
                 'contact_name' => $row['contact_name'],
                 'contact_role' => $row['contact_role'],
+                'sector' => $row['sector'],
             ]);
         }
     }

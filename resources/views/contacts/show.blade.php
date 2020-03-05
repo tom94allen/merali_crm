@@ -53,24 +53,9 @@
         </div>
     </div>
     <br>
-    <div id="danger-zone">
-        <div class="row">
-            <div class="col-lg">
-                <h4 class="welcome">Danger Zone</h4>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg">
-                {!! Form::open(['action' => ['ContactsController@destroy', $con->contact_id], 'method' => 'DELETE', 'id' => 'deleteForm']) !!}
-                    {!! Form::submit('Delete Contact', ['id' => 'cust-delete']) !!}
-                {!! Form::close() !!}
-            </div>
-        </div>
+    <div class="row">
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        <a href='../contacts/{{$con->contact_id}}/edit' id="cust-delete" style="padding:5px 15px">Edit Contact</a>
     </div>
-
-    
-    
-    
-
 <script src="{{ asset('js/app.js') }}" defer></script>
 @endsection

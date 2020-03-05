@@ -28,7 +28,9 @@ class ContactsController extends Controller
     {
         $all_contacts = Contact::all();
         $cont_type = ContactType::all();
-        $customers = Customer::all();
+        $customers = Customer::where('active_ind', 1)
+                               ->orderBy('name', 'ASC')
+                               ->get();
 
         return view('contacts.index')->with('all_contacts', $all_contacts)
                                      ->with('cont_type', $cont_type)
@@ -43,7 +45,9 @@ class ContactsController extends Controller
     public function create()
     {
         $cont_type = ContactType::all();
-        $customers = Customer::all();
+        $customers = Customer::where('active_ind', 1)
+                               ->orderBy('name', 'ASC')
+                               ->get();
 
         return view('contacts.create')->with('cont_type', $cont_type)
                                       ->with('customers', $customers);
@@ -104,7 +108,7 @@ class ContactsController extends Controller
      */
     public function edit($id)
     {
-        //
+        return "hello";
     }
 
     /**
@@ -135,7 +139,10 @@ class ContactsController extends Controller
         //function used for ajax query on contacts index page in search field
         $data = $request->all();
         $query_data = $data['val'];
-        $query = Customer::where('name', 'like', "%{$query_data}%")->orderBy('name', 'ASC')->get();
+        $query = Customer::where('name', 'like', "%{$query_data}%")
+                           ->where('active_ind', 1)
+                           ->orderBy('name', 'ASC')
+                           ->get();
 
         $output = '<ul class="result-display">';
         foreach($query as $item){

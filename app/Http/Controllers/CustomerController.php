@@ -11,6 +11,7 @@ use App\TaskStatus;
 use App\Contact;
 use App\ContactType;
 use App\User;
+use App\SectorType;
 use DB;
 class CustomerController extends Controller
 {
@@ -49,7 +50,11 @@ class CustomerController extends Controller
     {
         $users = User::all();
         $cust_status = CustomerStatus::all();
-        return view('customers.create')->with('users', $users)->with('cust_status', $cust_status);
+        $sectors = SectorType::all();
+
+        return view('customers.create')->with('users', $users)
+                                       ->with('cust_status', $cust_status)
+                                       ->with('sectors', $sectors);
     }
 
     /**
@@ -70,6 +75,7 @@ class CustomerController extends Controller
             'status' => 'required',
             'contact_name' => 'required',
             'contact_role' => 'required',
+            'sector' => 'required',
         ]);
 
         $customer = new Customer;
@@ -88,6 +94,8 @@ class CustomerController extends Controller
         $customer->status = $request->input('status');
         $customer->contact_name = $request->input('contact_name');
         $customer->contact_role = $request->input('contact_role');
+        $customer->sector = $request->input('sector');
+        $customer->active_ind = 1;
         $customer->save();
         return redirect('/customers')->with('success', 'Customer Created');
 
@@ -106,12 +114,13 @@ class CustomerController extends Controller
         //fetch the customer in question and the cust status text
         $customer = Customer::find($id);
         $cust_status = CustomerStatus::all();
+        //get their sector
+        $sectors = SectorType::all();
         //get their open tasks and all task status
         $tasks = Task::where('customer_id', "{$id}")->get();
         $task_status = TaskStatus::all();
         //get their recent contacts
         $contacts_five = Contact::where('customer_id', "{$id}")->orderBy('created_at', 'DESC')->take(6)->get();
-        $last_contact = Contact::where('customer_id', "{$id}")->orderBy('created_at', 'DESC')->take(1)->first();
         $cont_type = ContactType::all();
         return view('customers.show')->with('customer', $customer)
                                      ->with('cust_status', $cust_status)
@@ -119,8 +128,8 @@ class CustomerController extends Controller
                                      ->with('task_status', $task_status)
                                      ->with('contacts_five', $contacts_five)
                                      ->with('cont_type', $cont_type)
-                                     ->with('users', $users)
-                                     ->with('last_contact', $last_contact);
+                                     ->with('sectors', $sectors)
+                                     ->with('users', $users);
     }
 
     /**
@@ -134,9 +143,11 @@ class CustomerController extends Controller
         $customer = Customer::find($id);
         $cust_status = CustomerStatus::all();
         $users = User::all();
+        $sectors = SectorType::all();
 
         return view('customers.edit')->with('customer', $customer)
                                      ->with('cust_status', $cust_status)
+                                     ->with('sectors', $sectors)
                                      ->with('users', $users);
     }
 
@@ -165,6 +176,8 @@ class CustomerController extends Controller
         $customer->status = $request->input('status');
         $customer->contact_name = $request->input('contact_name');
         $customer->contact_role = $request->input('contact_role');
+        $customer->sector = $request->input('sector');
+        $customer->active_ind = 1;
         $customer->save();
 
         return redirect('/customers')->with('success', 'Customer Updated');
@@ -176,27 +189,23 @@ class CustomerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
-        $customer = Customer::find($id);
-        $cust_tasks = Task::where('customer_id', "{$id}")->get();
-        $cust_contacts = Contact::where('customer_id', "{$id}")->get();
-        if(!empty($cust_tasks)){
-            foreach($cust_tasks as $task){
-                $task->delete();
-            }   
-        }
-        if(!empty($cust_contacts)){
-            foreach($cust_contacts as $contact){
-                $contact->delete();
-            }
-            
-        }
-        $customer->delete();
-
-        return redirect('customers')->with('success', 'Customer Deleted');
-    }
     
+    public function deactivate($id)
+    {
+        //find the customer
+        $deactivate_customer = Customer::find($id);
+
+        //change their active_ind column to 0
+        $deactivate_customer->active_ind = 0;
+        $deactivate_customer->save();
+
+        //return to view with success message
+        return back()->with('success', 'Customer Deactivated');
+
+
+
+    }
+
     public function search(Request $request)
     {
         //ajax method used for search field on customers index view
@@ -204,7 +213,9 @@ class CustomerController extends Controller
         $data = $request->all();
         $query_data = $data['val'];
         // $cust_results = Customer::where('name', 'LIKE','%' . $data . '%')-->get();
-        $query = Customer::where('name', 'like', "%{$query_data}%")->orderBy('name', 'ASC')->get();
+        $query = Customer::where('name', 'like', "%{$query_data}%")
+                           ->where('active_ind', 1) 
+                           ->orderBy('name', 'ASC')->get();
         // return $query;
         $output = '<ul class="result-display">';
         foreach($query as $item){

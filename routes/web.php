@@ -42,3 +42,5 @@ Route::get('contacts/advancedsearch/{id}', 'ContactsController@advancedSearch');
 Route::get('/imports', 'ImportsController@index');
 
 Route::post('imports/import', 'ImportsController@import');
+
+Route::post('deactivate/{id}', 'CustomerController@deactivate');

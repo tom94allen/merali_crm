@@ -82,7 +82,9 @@ class TasksController extends Controller
      */
     public function create()
     {
-        $customers = Customer::all();
+        $customers = Customer::where('active_ind', 1)
+                               ->orderBy('name', 'ASC')
+                               ->get();
         $task_status = TaskStatus::all();
         $users = User::all();
         return view('tasks.create')->with('customers', $customers)->with('task_status', $task_status)->with('users', $users);
@@ -144,7 +146,9 @@ class TasksController extends Controller
     public function edit($id)
     {
         $task = Task::find($id);
-        $customers = Customer::all();
+        $customers = Customer::where('active_ind', 1)
+                               ->orderBy('name', 'ASC')
+                               ->get();
         $task_status = TaskStatus::all();
         $users = User::all();
         return view('tasks.edit')->with('customers', $customers)->with('task_status', $task_status)->with('users', $users)->with('task', $task);

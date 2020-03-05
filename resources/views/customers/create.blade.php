@@ -48,6 +48,15 @@
             </select>
         </div>
         <div class="form-group">
+            {!! Form::label('sector', 'Sector', ['class' => 'main-text']) !!}
+            <select name="sector" class="form-control">
+                <option value="">Please Select</option>
+                @foreach ($sectors as $sector)
+                    <option value="{{$sector->sector_id}}">{{$sector->name}}</option>
+                @endforeach
+            </select>
+        </div>
+        <div class="form-group">
             {!! Form::label('contact_name', 'Contact Name', ['class' => 'main-text']) !!}
             {!! Form::text('contact_name', '', ['class' => 'form-control']) !!}
         </div>

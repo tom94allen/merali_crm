@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Customer extends Model
 {
 
-    public $fillable = ['name', 'address_line1', 'town', 'postcode', 'email', 'telephone', 'owner', 'status', 'contact_name', 'contact_role'];
+    public $fillable = ['name', 'address_line1', 'town', 'postcode', 'email', 'telephone', 'owner', 'status', 'contact_name', 'contact_role', 'sector'];
 
     public $primaryKey = 'customer_id';
 
@@ -27,5 +27,9 @@ class Customer extends Model
 
     public function customerStatus(){
         return $this->hasOne('App\CustomerStatus', 'status_id');
+    }
+
+    public function sectorType(){
+        return $this->hasOne('App\SectorType', 'sector_id');
     }
 }

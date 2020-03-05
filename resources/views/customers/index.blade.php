@@ -35,15 +35,17 @@
             </div>
         </div>
         @foreach ($customers as $cust)
-            <div class="row">
-                <a class="col-lg" href='customers/{{$cust->customer_id}}'>
-                    <div class="card customer-card">
-                        <div class="card-body welcome">
-                            {{$cust->name}}
+            @if ($cust->active_ind != 0)
+                <div class="row">
+                    <a class="col-lg" href='customers/{{$cust->customer_id}}'>
+                        <div class="card customer-card">
+                            <div class="card-body welcome s{{$cust->status}}">
+                                {{$cust->name}}
+                            </div>
                         </div>
-                    </div>
-                </a>
-            </div>
+                    </a>
+                </div>
+            @endif
         @endforeach
     </div>
 

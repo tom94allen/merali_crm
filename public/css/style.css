@@ -171,7 +171,6 @@ a:hover{
 
 .customer-card:hover{
     transform: scale(1.01);
-    box-shadow: 0.25px 0.25px 8px #F51969;
 }
 
 #search-area{
@@ -387,6 +386,25 @@ ol li:hover{
     margin: auto;
 }
 
+.s1:hover{
+    box-shadow: 0.25px 0.25px 8px white;
+}
+
+.s2:hover{
+    box-shadow: 0.25px 0.25px 8px #00ccff;
+}
+
+.s3:hover{
+    box-shadow: 0.25px 0.25px 8px #ff9900;
+}
+
+.s4:hover{
+    box-shadow: 0.25px 0.25px 8px #009900;
+}
+
+.s5:hover{
+    box-shadow: 0.25px 0.25px 8px #ff0000;
+}
 
 
 
