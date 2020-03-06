@@ -116,9 +116,13 @@ class CustomerController extends Controller
     {
         //fetch all user info to establish owner of customer
         $users = User::all();
-        //fetch the customer in question and the cust status text
+        //fetch the customer in question, the cust status text and gets their notes if available 
         $customer = Customer::find($id);
         $cust_status = CustomerStatus::all();
+        $note = Customer::select('notes')
+                           ->where('customer_id', $id)
+                           ->where('active_ind', 1)
+                           ->firstOrFail();
         //get their sector
         $sectors = SectorType::all();
         //get their open tasks and all task status
@@ -134,6 +138,7 @@ class CustomerController extends Controller
                                      ->with('contacts_five', $contacts_five)
                                      ->with('cont_type', $cont_type)
                                      ->with('sectors', $sectors)
+                                     ->with('note', $note)
                                      ->with('users', $users);
     }
 
@@ -233,46 +238,38 @@ class CustomerController extends Controller
     public function custAdvancedSearch(Request $request)
     {
         //get references to form input sent by user
-        $owner = $request->input('owner');
-        $sector = $request->input('sector');
-        //create blank error variable that can be parsed to view if no options selected
+        $search = $request->all();
         $error = '';
-        //find results matching this criteria in DB
-        if(!$owner && !$sector){
-            $error = 'At least one field is required!';
+        //set the raw query to be added to depending on requests
+        $query = 'SELECT * from customers where active_ind = 1';
+
+        //loop through items sent from form and append it to the query if there is a value against the key
+        foreach($search as $k => $item){
+            if($search[$k]){
+                $query .= ' AND '.$k.' = '.$item.'';
+            }
+            else{
+                continue;
+            }
+        }
+        //ensure the query has changed from original otherwise revert back with error message
+        if($query == 'SELECT * from customers where active_ind = 1'){
+             $error = 'At least one selection is required!';
+             return back()->with('error', $error);
+        }
+
+        $results = DB::select(DB::raw("".$query.""));
+
+        //check results is not empty otherwise no customers found that match if not return view parsing results
+        if(empty($results)){
+            $error = 'No results found matching your query!';
             return back()->with('error', $error);
         }
-        elseif(!$owner && $sector){
-            $results = Customer::where('sector', $sector)
-                                ->where('active_ind', 1)
-                                ->get();
-            if(!$results){
-                $results = 'No results found that match this criteria!';
-                return view('customers.custAdvancedSearch')->with('results', $results);
-            }
+        else{
             return view('customers.custAdvancedSearch')->with('results', $results);
         }
-        elseif($owner && !$sector){
-            $results = Customer::where('owner', $owner)
-                                ->where('active_ind', 1)
-                                ->get();
-            if(!$results){
-                $results = 'No results found that match this criteria!';
-                return view('customers.custAdvancedSearch')->with('results', $results);
-            }
-            return view('customers.custAdvancedSearch')->with('results', $results);
-        }
-        elseif($owner && $sector){
-            $results = Customer::where('sector', $sector)
-                                ->where('owner', $owner)
-                                ->where('active_ind', 1)
-                                ->get();
-            if(!$results){
-                $results = 'No results found that match this criteria!';
-                return view('customers.custAdvancedSearch')->with('results', $results);
-            }
-            return view('customers.custAdvancedSearch')->with('results', $results);
-        }
+
+        
     }
 
 }

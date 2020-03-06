@@ -406,5 +406,12 @@ ol li:hover{
     box-shadow: 0.25px 0.25px 8px #ff0000;
 }
 
+#addtl-info{
+    background-color: white;
+    padding: 15px;
+    border-radius: 6px;
+    border: 2px solid rgb(1,25,54, 0.2);
+}
+
 
 

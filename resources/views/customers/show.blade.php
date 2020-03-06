@@ -71,6 +71,16 @@
             </div>
         </div>
         <br>
+        @if($note['notes'])
+            <div class="row">
+                <div class="col-lg" id="addtl-info">
+                    <h4 class="welcome">Additional information</h4>    
+                    <hr>
+                    <article class="main-text">{{$note['notes']}}</article>  
+                </div>
+            </div>
+            <br>
+        @endif
         <div class="row">
             <div class="col-lg-6" id="cx-task-display">
                 <br>

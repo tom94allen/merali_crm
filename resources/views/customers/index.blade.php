@@ -83,6 +83,17 @@
                             </select>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col">
+                            &nbsp;{!! Form::label('status', 'Status', ['class' => 'main-text', 'style' => 'width:50%']) !!}
+                            <select name="status" class="main-text form-control" style="width:47% !important">
+                                <option value="">Please Select</option>
+                                @foreach ($cust_status as $status)
+                                    <option value="{{$status->status_id}}">{{$status->name}}</option>                                    
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
                     <button type="button" class="cust-btns" style="margin: 10px 5px 10px 0" data-dismiss="modal">Close</button>
                     {!! Form::submit('Apply Filter', ['type' => 'button', 'class' => 'cust-btns']) !!}
                 {!! Form::close() !!}
