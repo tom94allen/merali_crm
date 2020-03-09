@@ -136,7 +136,7 @@ class ContactsController extends Controller
         $contact->type_id = $request->input('type_id');
         $contact->customer_id = $request->input('customer_id');
         $contact->details = $request->input('details');
-        $contact->created_by = Auth::user()->id;
+        $contact->updated_by = Auth::user()->id;
         //save and redirect to view with success message
         $contact->save();
         return redirect('contacts')->with('success', 'Contact Edited');

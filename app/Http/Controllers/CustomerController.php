@@ -12,7 +12,7 @@ use App\Contact;
 use App\ContactType;
 use App\User;
 use App\SectorType;
-use DB;
+use Illuminate\Support\Facades\DB;
 class CustomerController extends Controller
 {
     public function __construct()
@@ -101,6 +101,7 @@ class CustomerController extends Controller
         $customer->contact_role = $request->input('contact_role');
         $customer->sector = $request->input('sector');
         $customer->active_ind = 1;
+        $customer->created_by = Auth::user()->id;
         $customer->save();
         return redirect('/customers')->with('success', 'Customer Created');
 
@@ -188,6 +189,7 @@ class CustomerController extends Controller
         $customer->contact_role = $request->input('contact_role');
         $customer->sector = $request->input('sector');
         $customer->active_ind = 1;
+        $customer->updated_by = Auth::user()->id;
         $customer->save();
 
         return redirect('/customers')->with('success', 'Customer Updated');
@@ -210,7 +212,7 @@ class CustomerController extends Controller
         $deactivate_customer->save();
 
         //return to view with success message
-        return back()->with('success', 'Customer Deactivated');
+        return redirect('/customers')->with('success', 'Customer Deactivated');
 
 
 

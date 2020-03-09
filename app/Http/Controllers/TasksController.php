@@ -120,6 +120,7 @@ class TasksController extends Controller
         else{
             $task->customer_id = NULL;
         }
+        $task->created_by = Auth::user()->id;
         $task->save();
 
         return redirect('/tasks')->with('success', 'Task Created');
@@ -175,6 +176,7 @@ class TasksController extends Controller
         else{
             $task->customer_id = NULL;
         }
+        $task->updated_by = Auth::user()->id;
         $task->save();
 
         return redirect('/tasks')->with('success', 'Task Updated');
