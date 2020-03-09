@@ -127,7 +127,11 @@ class CustomerController extends Controller
         //get their sector
         $sectors = SectorType::all();
         //get their open tasks and all task status
-        $tasks = Task::where('customer_id', "{$id}")->get();
+        // $tasks = Task::where('customer_id', "{$id}")->get();
+        $tasks = DB::select(DB::raw('select tasks.task_id, tasks.task_name, tasks.due_date, users.name
+                                    from tasks
+                                    left join users
+                                    on tasks.user_id = users.id'));
         $task_status = TaskStatus::all();
         //get their recent contacts
         $contacts_five = Contact::where('customer_id', "{$id}")->orderBy('created_at', 'DESC')->take(6)->get();

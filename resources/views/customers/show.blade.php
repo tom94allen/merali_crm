@@ -89,7 +89,8 @@
                 @foreach ($tasks as $task)
                     <a href="../tasks/{{$task->task_id}}/edit">
                         <div class="card cust-tasks">
-                            <div class="card-body">{{$task->task_name}}</div>
+                        <div class="card-body" style="padding: 2px 20px !important">{{$task->task_name}} | <small>Due: {{$task->due_date}}</small></div>
+                        <div class="card-body" style="padding: 2px 20px !important"><small>Created by: {{$task->name}}</small></div>
                         </div>
                     </a>
                 @endforeach
@@ -101,22 +102,20 @@
                 <hr>
                 <ol>
                     @foreach ($contacts_five as $contact)
-                        <a href="../contacts/{{$contact->contact_id}}">
-                            @switch($contact->type_id)
-                                @case(1)
-                                    <li>Phone call on {{$contact->created_at->format('d/m/Y')}}</li>
-                                    @break
-                                @case(2)
-                                    <li>Email on {{$contact->created_at->format('d/m/Y')}}</li>
-                                    @break
-                                @case(3)
-                                    <li>Spoke face to face on {{$contact->created_at->format('d/m/Y')}}</li>
-                                    @break
-                                @default
-                                    
-                            @endswitch
-                            
-                        </a>
+                            <a href="../contacts/{{$contact->contact_id}}">
+                                @switch($contact->type_id)
+                                    @case(1)
+                                        <li>Phone call on {{$contact->created_at->format('d/m/Y')}},</li>
+                                        @break
+                                    @case(2)
+                                        <li>Email on {{$contact->created_at->format('d/m/Y')}},</li>
+                                        @break
+                                    @case(3)
+                                        <li>Spoke face to face on {{$contact->created_at->format('d/m/Y')}},</li>
+                                        @break
+                                    @default
+                                        @break
+                                @endswitch
                     @endforeach
                 </ol>
                 <!--Insert button that links to all contacts associated to this customer, once route is setup-->

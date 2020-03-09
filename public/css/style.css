@@ -234,6 +234,7 @@ a:hover{
     background-color: white !important;
     border-radius: 6px;
     border: 2px solid rgb(1,25,54, 0.2);
+    height: 45vh !important;
 }
 
 .cust-tasks{
