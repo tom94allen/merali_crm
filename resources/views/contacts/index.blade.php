@@ -30,8 +30,6 @@
     <div id="main-area">
         <div class="row">
             @foreach ($all_contacts as $contact)
-                @foreach ($customers as $customer)
-                    @if ($contact->customer_id == $customer->customer_id)
                     <div class="card col-lg-2 contact-card" style="margin:auto">
                         @if($contact->type_id == 1)
                             <img class="card-img-top card-image" src="{{asset('images/phone.png')}}">
@@ -46,15 +44,13 @@
                             <div class="card-body">
                                 <div class="card-title" style="text-align:center">Face to Face</div>
                         @endif
-                            <p class="card-text main-text" style="text-align:center">{{$contact->created_at->format('d/m/Y')}}</p>
-                            <p class="card-text main-text" style="text-align:center">{{$customer->name}}</p>
+                            <p class="card-text main-text" style="text-align:center">{{date('d-m-Y', strtotime($contact->created_date))}}</p>
+                            <p class="card-text main-text" style="text-align:center">{{$contact->name}}</p>
                             <div class="text-center">
                                 <a href="contacts/{{$contact->contact_id}}" class="main-text contact-view">View Contact</a>
                             </div>
                         </div>
                       </div>
-                    @endif
-                @endforeach
             @endforeach
         </div>
         </div>

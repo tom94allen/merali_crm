@@ -115,36 +115,38 @@ class CustomerController extends Controller
      */
     public function show($id)
     {
-        //fetch all user info to establish owner of customer
-        $users = User::all();
-        //fetch the customer in question, the cust status text and gets their notes if available 
-        $customer = Customer::find($id);
-        $cust_status = CustomerStatus::all();
+        //fetch the required info on the customer in question dynamically parsing the id to the query
+        $customer = DB::select(DB::raw('select c.*, u.name as username, cs.name as cust_status, st.name as sector
+                                from customers c
+                                left join users u on c.owner = u.id
+                                left join customer_status cs on c.status = cs.status_id
+                                left join sector_type st on c.sector = st.sector_id
+                                where c.active_ind = 1
+                                and c.customer_id = '.$id.';'));
         $note = Customer::select('notes')
                            ->where('customer_id', $id)
                            ->where('active_ind', 1)
                            ->firstOrFail();
-        //get their sector
-        $sectors = SectorType::all();
         //get their open tasks and all task status
-        // $tasks = Task::where('customer_id', "{$id}")->get();
-        $tasks = DB::select(DB::raw('select tasks.task_id, tasks.task_name, tasks.due_date, users.name
-                                    from tasks
-                                    left join users
-                                    on tasks.user_id = users.id'));
-        $task_status = TaskStatus::all();
-        //get their recent contacts
-        $contacts_five = Contact::where('customer_id', "{$id}")->orderBy('created_at', 'DESC')->take(6)->get();
-        $cont_type = ContactType::all();
+        $tasks = DB::select(DB::raw('select t.task_id, t.task_name, t.due_date, u.name
+                                    from tasks t
+                                    left join users u on t.user_id = u.id
+                                    where t.status_id <> 3
+                                    and t.customer_id = '.$id.';'));
+        
+        //get their 5 most recent contacts
+        $contacts_five = DB::select(DB::raw('select c.*, ct.name as con_type, u.name as username, cast(c.created_at as date) as date
+                                            from contacts c
+                                            left join contact_type ct on c.type_id = ct.type_id
+                                            left join users u on c.created_by = u.id
+                                            where c.customer_id = '.$id.'
+                                            order by c.created_at desc
+                                            limit 5'));
+        
         return view('customers.show')->with('customer', $customer)
-                                     ->with('cust_status', $cust_status)
                                      ->with('tasks', $tasks)
-                                     ->with('task_status', $task_status)
                                      ->with('contacts_five', $contacts_five)
-                                     ->with('cont_type', $cont_type)
-                                     ->with('sectors', $sectors)
-                                     ->with('note', $note)
-                                     ->with('users', $users);
+                                     ->with('note', $note);
     }
 
     /**

@@ -26,15 +26,15 @@ class ContactsController extends Controller
      */
     public function index()
     {
-        $all_contacts = Contact::all();
-        $cont_type = ContactType::all();
-        $customers = Customer::where('active_ind', 1)
-                               ->orderBy('name', 'ASC')
-                               ->get();
-
-        return view('contacts.index')->with('all_contacts', $all_contacts)
-                                     ->with('cont_type', $cont_type)
-                                     ->with('customers', $customers);
+        //get reference to relevant data from db
+        $all_contacts = DB::select(DB::raw('select c.contact_id, c.details, c.type_id,ct.name as con_type, cu.name, cast(c.created_at as date) as created_date
+                                            from contacts c
+                                            left join contact_type ct on c.type_id = ct.type_id
+                                            left join customers cu on c.customer_id = cu.customer_id
+                                            where cu.active_ind = 1
+                                            order by created_date desc'));
+        
+        return view('contacts.index')->with('all_contacts', $all_contacts);
     }
 
     /**
