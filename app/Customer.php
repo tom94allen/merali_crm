@@ -8,7 +8,7 @@ class Customer extends Model
 {
 
 
-    public $fillable = ['name', 'address_line1', 'town', 'postcode', 'email', 'telephone', 'owner', 'status', 'contact_name', 'contact_role', 'sector'];
+    public $fillable = ['name', 'address_line1', 'town', 'postcode', 'email', 'telephone', 'owner', 'status', 'contact_name', 'contact_role', 'sector', 'active_ind', 'notes', 'created_by'];
 
     public $primaryKey = 'customer_id';
 
