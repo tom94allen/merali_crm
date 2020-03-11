@@ -46,3 +46,5 @@ Route::post('imports/import', 'ImportsController@import');
 Route::post('deactivate/{id}', 'CustomerController@deactivate');
 
 Route::get('/custadvancedsearch', 'CustomerController@custAdvancedSearch');
+
+Route::post('/addnote/{id}', 'CustomerController@addNote');

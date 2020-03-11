@@ -109,4 +109,15 @@ $(document).ready(function(){
     verAlign();
 });
 
+function pushContent(){
+    var add_addtl_info = document.getElementById('add-addtl-info');
+    if(add_addtl_info.classList.contains("open")){
+        $("#add-addtl-info" ).removeClass("open");
+    }
+    else{
+        $("#add-addtl-info" ).toggleClass("open");
+    }
+        
+}
+
 

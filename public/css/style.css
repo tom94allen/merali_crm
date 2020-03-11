@@ -414,5 +414,15 @@ ol li:hover{
     border: 2px solid rgb(1,25,54, 0.2);
 }
 
+#add-addtl-info{
+    background-color: white;
+    border-radius: 6px;
+    border: 2px solid rgb(1,25,54, 0.2);
+    margin: 15px 0px;
+}
+
+#add-addtl-info.open{
+    margin-bottom: 345px;
+}
 
 

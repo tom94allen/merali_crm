@@ -280,4 +280,14 @@ class CustomerController extends Controller
         
     }
 
+    public function addNote(Request $request, $id)
+    {
+        //find customer, get the details from the request and save it to the correct column in db
+        $customer = Customer::find($id);
+        $customer->notes = $request->input('notes');
+        $customer->save();
+
+        return redirect('customers/'.$id)->with('success', 'Note Created');
+    }
+
 }

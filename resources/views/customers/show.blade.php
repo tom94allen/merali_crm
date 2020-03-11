@@ -58,8 +58,9 @@
                 </div>
             </div>
         </div>
-        <br>
+        
         @if($note['notes'])
+        <br>
             <div class="row">
                 <div class="col-lg" id="addtl-info">
                     <h4 class="welcome">Additional information</h4>    
@@ -68,6 +69,23 @@
                 </div>
             </div>
             <br>
+        @else
+            <div class="row">
+                <div class="btn-group btn-block" id="add-addtl-info">
+                    <button type="button" style="text-align:left !important" class="welcome btn btn-block dropdown-toggle" data-toggle="dropdown" onclick="pushContent()"><span class="glyphicon glyphicon-cog"></span>Add additional information eg. socials etc<span class="caret"></span>
+                    </button>
+                    <hr>
+                    <div class="dropdown-menu col-lg" role="menu">
+                        {!! Form::open(['action' => ['CustomerController@addNote', $customer[0]->customer_id], 'method' => 'POST', 'class' => 'col-lg-6']) !!}
+                            <div class="form-group">
+                                {!! Form::label('notes', 'Enter details below...', ['class' => 'main-text']) !!}
+                                {!! Form::textarea('notes', '', ['class' => 'form-control', 'row' => '2', 'style' => 'resize:none;']) !!}
+                            </div>
+                            {!! Form::submit('Add', ['class' => ['change-view', 'col-lg-3']]) !!}
+                        {!! Form::close() !!}
+                    </div>
+                </div>
+            </div>
         @endif
         <div class="row">
             <div class="col-lg-6" id="cx-task-display">
@@ -131,4 +149,5 @@
             </div>
         </div>
     </div>
+<script src="{{ asset('js/app.js') }}" defer></script>
 @endsection
