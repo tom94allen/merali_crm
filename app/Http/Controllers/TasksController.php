@@ -11,6 +11,7 @@ use App\Task;
 use App\User;
 use App\Customer;
 use App\TaskStatus;
+use Illuminate\Support\Facades\DB;
 
 class TasksController extends Controller
 {
@@ -25,54 +26,75 @@ class TasksController extends Controller
      */
     public function index()
     {
-        //getting data
-        $auth_id = Auth::user()->id;
-        $user = User::where('id', $auth_id)->firstOrFail();
-        $status = TaskStatus::all();
-        $tasks = Task::all();
-        //setting the range of dates for the current week
+        //get necessary data
+        $user = Auth::user();
+        $tasks = DB::select(DB::raw('select t.task_id, t.task_name, t.due_date, t.due_day, t.status_id, u.name, ts.text, c.name
+                                    from tasks t
+                                    left join task_status ts on t.status_id = ts.status_id
+                                    left join users u on t.user_id = u.id
+                                    left join customers c on t.customer_id = c.customer_id
+                                    where t.user_id = '.$user->id.'
+                                    and t.status_id <> 3
+                                    order by t.due_date asc;'));
+        //dates for current week
         $now = Carbon::now();
         $weekStartDate = $now->startOfWeek()->format('Y-m-d');
         $weekEndDate = $now->endOfWeek()->format('Y-m-d');
-        
-        //forming an associate array with days of weeks as keys and mapping their dates for the current week respectively
-        $dates = array();
         $period = CarbonPeriod::create($weekStartDate, $weekEndDate);
-        
+        $dates = array();
+
+        //map the dates for current week against their respective days
         foreach($period as $k => $date){
             array_push($dates, $date);
         }
         $collection = collect(['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']);
         $combined = $collection->combine([$dates[0], $dates[1], $dates[2], $dates[3], $dates[4], $dates[5], $dates[6]]);
-        
         $curr_week = $combined->all();
+        
+        $monday = Carbon::parse($curr_week['Monday'])->format('Y-m-d');
+        $tuesday = Carbon::parse($curr_week['Tuesday'])->format('Y-m-d');
+        $wednesday = Carbon::parse($curr_week['Wednesday'])->format('Y-m-d');
+        $thursday = Carbon::parse($curr_week['Thursday'])->format('Y-m-d');
+        $friday = Carbon::parse($curr_week['Friday'])->format('Y-m-d');
+        $saturday = Carbon::parse($curr_week['Saturday'])->format('Y-m-d');
+        $sunday = Carbon::parse($curr_week['Sunday'])->format('Y-m-d');
 
-        //assiging a due day to the column in the task table
         foreach($tasks as $task){
-            if($task->due_date == $curr_week['Monday']){
-                $task->day_due = "Monday";
+            switch($task->due_date){
+                case $monday:
+                    $task->due_day = "monday";
+                    break;
+                case $tuesday:
+                    $task->due_day = "tuesday";
+                    break;
+                case $wednesday:
+                    $task->due_day = "wednesday";
+                    break;
+                case $thursday:
+                    $task->due_day = "thursday";
+                    break;
+                case $friday:
+                    $task->due_day = "friday";
+                    break;
+                case $saturday:
+                    $task->due_day = "saturday";
+                    break;
+                case $sunday:
+                    $task->due_day = "sunday";
+                    break;
             }
-            else if($task->due_date == $curr_week['Tuesday']){
-                $task->day_due = "Tuesday";
-            }
-            else if($task->due_date == $curr_week['Wednesday']){
-                $task->day_due = "Wednesday";
-            }
-            else if($task->due_date == $curr_week['Thursday']){
-                $task->day_due = "Thursday";
-            }
-            else if($task->due_date == $curr_week['Friday']){
-                $task->day_due = "Friday";
-            }
-            else if($task->due_date == $curr_week['Saturday']){
-                $task->day_due = "Saturday";
-            }
-            else if($task->due_date == $curr_week['Sunday']){
-                $task->day_due = "Sunday";
-            }
-            
         }
-        return view('dashboard')->with('user', $user)->with('tasks', $tasks)->with('status', $status);
+
+        return view('dashboard')->with('user', $user)
+                                ->with('monday', $monday)
+                                ->with('tuesday', $tuesday)
+                                ->with('wednesday', $wednesday)
+                                ->with('thursday', $thursday)
+                                ->with('friday', $friday)
+                                ->with('saturday', $saturday)
+                                ->with('sunday', $sunday)
+                                ->with('tasks', $tasks);
+
     }
 
     /**
@@ -230,4 +252,60 @@ class TasksController extends Controller
 
         return redirect('customers/'.$id)->with('success', 'Task added for this customer');
     }
+
+    public function dayTasks($id)
+    {
+        return $id;
+        return "hello";
+    }
 }
+
+
+// //getting data
+// $auth_id = Auth::user()->id;
+// $user = User::where('id', $auth_id)->firstOrFail();
+// $status = TaskStatus::all();
+// $tasks = Task::all();
+// //setting the range of dates for the current week
+// $now = Carbon::now();
+// $weekStartDate = $now->startOfWeek()->format('Y-m-d');
+// $weekEndDate = $now->endOfWeek()->format('Y-m-d');
+
+// //forming an associate array with days of weeks as keys and mapping their dates for the current week respectively
+// $dates = array();
+// $period = CarbonPeriod::create($weekStartDate, $weekEndDate);
+
+// foreach($period as $k => $date){
+//     array_push($dates, $date);
+// }
+// $collection = collect(['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']);
+// $combined = $collection->combine([$dates[0], $dates[1], $dates[2], $dates[3], $dates[4], $dates[5], $dates[6]]);
+
+// $curr_week = $combined->all();
+
+// //assiging a due day to the column in the task table
+// foreach($tasks as $task){
+//     if($task->due_date == $curr_week['Monday']){
+//         $task->day_due = "Monday";
+//     }
+//     else if($task->due_date == $curr_week['Tuesday']){
+//         $task->day_due = "Tuesday";
+//     }
+//     else if($task->due_date == $curr_week['Wednesday']){
+//         $task->day_due = "Wednesday";
+//     }
+//     else if($task->due_date == $curr_week['Thursday']){
+//         $task->day_due = "Thursday";
+//     }
+//     else if($task->due_date == $curr_week['Friday']){
+//         $task->day_due = "Friday";
+//     }
+//     else if($task->due_date == $curr_week['Saturday']){
+//         $task->day_due = "Saturday";
+//     }
+//     else if($task->due_date == $curr_week['Sunday']){
+//         $task->day_due = "Sunday";
+//     }
+    
+// }
+// return view('dashboard')->with('user', $user)->with('tasks', $tasks)->with('status', $status);

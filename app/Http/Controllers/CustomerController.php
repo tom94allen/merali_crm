@@ -286,7 +286,7 @@ class CustomerController extends Controller
         $customer = Customer::find($id);
         $customer->notes = $request->input('notes');
         $customer->save();
-
+        //redirect back to customers page with success message
         return redirect('customers/'.$id)->with('success', 'Note Created');
     }
 

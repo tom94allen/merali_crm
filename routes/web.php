@@ -27,6 +27,8 @@ Route::get('/search', 'CustomerController@search');
 
 Route::get('/find', 'ContactsController@find');
 
+Route::get('/daytasks/{id}', 'TasksController@dayTasks');
+
 Route::get('tasks/create/{id}', 'TasksController@customerCreate');
 
 Route::post('tasks/store/{id}', 'TasksController@customerStore');
