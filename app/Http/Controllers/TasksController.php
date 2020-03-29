@@ -255,8 +255,37 @@ class TasksController extends Controller
 
     public function dayTasks($id)
     {
+        
+        //dates for current week
+        $now = Carbon::now();
+        $weekStartDate = $now->startOfWeek()->format('Y-m-d');
+        $weekEndDate = $now->endOfWeek()->format('Y-m-d');
+        $period = CarbonPeriod::create($weekStartDate, $weekEndDate);
+        $dates = array();
+
+        //map the dates for current week against their respective days
+        foreach($period as $k => $date){
+            array_push($dates, $date);
+        }
+        $collection = collect(['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']);
+        $combined = $collection->combine([$dates[0], $dates[1], $dates[2], $dates[3], $dates[4], $dates[5], $dates[6]]);
+        $curr_week = $combined->all();
+        
+        //store the day that was clicked
+        $task_day = Carbon::parse($curr_week[$id])->format('Y-m-d');
+        
+        //get tasks from DB with matching due date
+        $tasks = DB::select(DB::raw('select t.task_id, t.task_name, t.due_date, ts.text, u.name, c.name, u.name as created_by
+                                    from tasks t
+                                    left join task_status ts on t.status_id = ts.status_id
+                                    left join customers c on t.customer_id = c.customer_id
+                                    left join users u on t.user_id = u.id
+                                    where t.status_id <> 3
+                                    and t.due_date = "'.$task_day.'"'));
+
+
+        return $tasks;
         return $id;
-        return "hello";
     }
 }
 

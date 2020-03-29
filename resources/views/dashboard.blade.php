@@ -36,60 +36,68 @@
                     </a>
                 </div>
                 <div id="tuesday" class="card day-card">
-                    <div class="card-title welcome" style="padding:0px 2px !important;">
-                        Tuesday
-                        <div class="float-right main-text"><small>{{date('d/m', strtotime($tuesday))}}</small></div>
-                    </div>
-                    <hr style="margin: 0px 0px 5px !important">
-                    @foreach($tasks as $task)
-                        @if($task->due_day == "tuesday")
-                            <a href="tasks/{{$task->task_id}}/edit"> 
-                                <div class="card main-text task-card" style="margin:1px 1px !important; padding: 0px 2px !important">{{$task->task_name}}</div>
-                            </a>
-                        @endif
-                    @endforeach
+                    <a href="daytasks/tuesday">
+                        <div class="card-title welcome" style="padding:0px 2px !important;">
+                            Tuesday
+                            <div class="float-right main-text"><small>{{date('d/m', strtotime($tuesday))}}</small></div>
+                        </div>
+                        <hr style="margin: 0px 0px 5px !important">
+                        @foreach($tasks as $task)
+                            @if($task->due_day == "tuesday")
+                                <a href="tasks/{{$task->task_id}}/edit"> 
+                                    <div class="card main-text task-card" style="margin:1px 1px !important; padding: 0px 2px !important">{{$task->task_name}}</div>
+                                </a>
+                            @endif
+                        @endforeach
+                    </a>
                 </div>
                 <div id="wednesday" class="card day-card">
-                    <div class="card-title welcome" style="padding:0px 2px !important;">
-                        Wednesday
-                        <div class="float-right main-text"><small>{{date('d/m', strtotime($wednesday))}}</small></div>
-                    </div>
-                    <hr style="margin: 0px 0px 5px !important">
-                    @foreach($tasks as $task)
-                        @if($task->due_day == "wednesday")
-                            <a href="tasks/{{$task->task_id}}/edit"> 
-                                <div class="card main-text task-card" style="margin: 1px 1px !important; padding: 0px 2px !important">{{$task->task_name}}</div>
-                            </a>
-                        @endif
-                    @endforeach
+                    <a href="daytasks/wednesday">
+                        <div class="card-title welcome" style="padding:0px 2px !important;">
+                            Wednesday
+                            <div class="float-right main-text"><small>{{date('d/m', strtotime($wednesday))}}</small></div>
+                        </div>
+                        <hr style="margin: 0px 0px 5px !important">
+                        @foreach($tasks as $task)
+                            @if($task->due_day == "wednesday")
+                                <a href="tasks/{{$task->task_id}}/edit"> 
+                                    <div class="card main-text task-card" style="margin: 1px 1px !important; padding: 0px 2px !important">{{$task->task_name}}</div>
+                                </a>
+                            @endif
+                        @endforeach
+                    </a>
                 </div>
                 <div id="thursday" class="card day-card">
-                    <div class="card-title welcome" style="padding:0px 2px !important;">
-                        Thursday
-                        <div class="float-right main-text"><small>{{date('d/m', strtotime($thursday))}}</small></div>
-                    </div>
-                    <hr style="margin: 0px 0px 5px !important">
-                    @foreach($tasks as $task)
-                        @if($task->due_day == "thursday")
-                            <a href="tasks/{{$task->task_id}}/edit"> 
-                                <div class="card main-text task-card" style="margin: 1px 1px !important; padding: 0px 2px !important">{{$task->task_name}}</div>
-                            </a>
-                        @endif
-                    @endforeach
+                    <a href="daytasks/thursday">
+                        <div class="card-title welcome" style="padding:0px 2px !important;">
+                            Thursday
+                            <div class="float-right main-text"><small>{{date('d/m', strtotime($thursday))}}</small></div>
+                        </div>
+                        <hr style="margin: 0px 0px 5px !important">
+                        @foreach($tasks as $task)
+                            @if($task->due_day == "thursday")
+                                <a href="tasks/{{$task->task_id}}/edit"> 
+                                    <div class="card main-text task-card" style="margin: 1px 1px !important; padding: 0px 2px !important">{{$task->task_name}}</div>
+                                </a>
+                            @endif
+                        @endforeach
+                    </a>
                 </div>
                 <div id="friday" class="card day-card">
-                    <div class="card-title welcome" style="padding:0px 2px !important;">
-                        Friday
-                        <div class="float-right main-text "><small>{{date('d/m', strtotime($friday))}}</small></div>
-                    </div>
-                    <hr style="margin: 0px 0px 5px !important">
-                    @foreach($tasks as $task)
-                        @if($task->due_day == "friday")
-                            <a href="tasks/{{$task->task_id}}/edit"> 
-                                <div class="card main-text task-card" style="margin: 1px 1px !important; padding: 0px 2px !important">{{$task->task_name}}</div>
-                            </a>
-                        @endif
-                    @endforeach
+                    <a href="daytasks/friday">
+                        <div class="card-title welcome" style="padding:0px 2px !important;">
+                            Friday
+                            <div class="float-right main-text "><small>{{date('d/m', strtotime($friday))}}</small></div>
+                        </div>
+                        <hr style="margin: 0px 0px 5px !important">
+                        @foreach($tasks as $task)
+                            @if($task->due_day == "friday")
+                                <a href="tasks/{{$task->task_id}}/edit"> 
+                                    <div class="card main-text task-card" style="margin: 1px 1px !important; padding: 0px 2px !important">{{$task->task_name}}</div>
+                                </a>
+                            @endif
+                        @endforeach
+                    </a>
                 </div>
             </div>
         @else
