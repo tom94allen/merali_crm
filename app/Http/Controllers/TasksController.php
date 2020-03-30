@@ -274,7 +274,7 @@ class TasksController extends Controller
         //store the day that was clicked
         $task_day = Carbon::parse($curr_week[$id])->format('Y-m-d');
         
-        //get tasks from DB with matching due date
+        //get tasks from DB with matching due date to the day selected
         $tasks = DB::select(DB::raw('select t.task_id, t.task_name, t.due_date, ts.text, u.name, c.name, u.name as created_by
                                     from tasks t
                                     left join task_status ts on t.status_id = ts.status_id
@@ -285,7 +285,21 @@ class TasksController extends Controller
 
 
         return $tasks;
-        return $id;
+        
+    }
+
+    public function quickUpdate ($id)
+    {
+        $task = Task::find($id);
+        $task->status_id = 3;
+        $saved = $task->save();
+        if(!$saved){
+            return "failed";
+        }
+        else{
+            return "/images/right.png";
+        }
+        
     }
 }
 

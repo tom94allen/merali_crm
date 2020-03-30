@@ -28,9 +28,12 @@
                         <hr style="margin: 0px 0px 5px !important">
                         @foreach($tasks as $task)
                             @if($task->due_day == "monday")
-                                <a href="tasks/{{$task->task_id}}/edit"> 
-                                    <div class="card main-text task-card" style="margin: 1px 1px !important; padding: 0px 2px !important">{{$task->task_name}}</div>
-                                </a>
+                                <div class="row" >
+                                    <div class="card main-text task-card">
+                                        <a href="tasks/{{$task->task_id}}/edit">{{$task->task_name}}</a>
+                                        <img onclick="quickUpdate()" src="{{asset('images/circle.png')}}" id="{{$task->task_id}}" class="cal-task">
+                                    </div>
+                                </div>
                             @endif
                         @endforeach
                     </a>
@@ -41,15 +44,18 @@
                             Tuesday
                             <div class="float-right main-text"><small>{{date('d/m', strtotime($tuesday))}}</small></div>
                         </div>
-                        <hr style="margin: 0px 0px 5px !important">
-                        @foreach($tasks as $task)
-                            @if($task->due_day == "tuesday")
-                                <a href="tasks/{{$task->task_id}}/edit"> 
-                                    <div class="card main-text task-card" style="margin:1px 1px !important; padding: 0px 2px !important">{{$task->task_name}}</div>
-                                </a>
-                            @endif
-                        @endforeach
                     </a>
+                    <hr style="margin: 0px 0px 5px !important">
+                    @foreach($tasks as $task)
+                        @if($task->due_day == "tuesday")
+                            <div class="row" >
+                                <div class="card main-text task-card">
+                                    <a href="tasks/{{$task->task_id}}/edit">{{$task->task_name}}</a>
+                                    <img onclick="quickUpdate()" src="{{asset('images/circle.png')}}" id="{{$task->task_id}}" class="cal-task">
+                                </div>
+                            </div>
+                        @endif
+                    @endforeach
                 </div>
                 <div id="wednesday" class="card day-card">
                     <a href="daytasks/wednesday">
@@ -60,9 +66,12 @@
                         <hr style="margin: 0px 0px 5px !important">
                         @foreach($tasks as $task)
                             @if($task->due_day == "wednesday")
-                                <a href="tasks/{{$task->task_id}}/edit"> 
-                                    <div class="card main-text task-card" style="margin: 1px 1px !important; padding: 0px 2px !important">{{$task->task_name}}</div>
-                                </a>
+                                <div class="row" >
+                                    <div class="card main-text task-card">
+                                        <a href="tasks/{{$task->task_id}}/edit">{{$task->task_name}}</a>
+                                        <img onclick="quickUpdate()" src="{{asset('images/circle.png')}}" id="{{$task->task_id}}" class="cal-task">
+                                    </div>
+                                </div>
                             @endif
                         @endforeach
                     </a>
@@ -76,9 +85,12 @@
                         <hr style="margin: 0px 0px 5px !important">
                         @foreach($tasks as $task)
                             @if($task->due_day == "thursday")
-                                <a href="tasks/{{$task->task_id}}/edit"> 
-                                    <div class="card main-text task-card" style="margin: 1px 1px !important; padding: 0px 2px !important">{{$task->task_name}}</div>
-                                </a>
+                                <div class="row" >
+                                    <div class="card main-text task-card">
+                                        <a href="tasks/{{$task->task_id}}/edit">{{$task->task_name}}</a>
+                                        <img onclick="quickUpdate()" src="{{asset('images/circle.png')}}" id="{{$task->task_id}}" class="cal-task">
+                                    </div>
+                                </div>
                             @endif
                         @endforeach
                     </a>
@@ -92,9 +104,12 @@
                         <hr style="margin: 0px 0px 5px !important">
                         @foreach($tasks as $task)
                             @if($task->due_day == "friday")
-                                <a href="tasks/{{$task->task_id}}/edit"> 
-                                    <div class="card main-text task-card" style="margin: 1px 1px !important; padding: 0px 2px !important">{{$task->task_name}}</div>
-                                </a>
+                                <div class="row" >
+                                    <div class="card main-text task-card">
+                                        <a href="tasks/{{$task->task_id}}/edit">{{$task->task_name}}</a>
+                                        <img onclick="quickUpdate()" src="{{asset('images/circle.png')}}" id="{{$task->task_id}}" class="cal-task">
+                                    </div>
+                                </div>
                             @endif
                         @endforeach
                     </a>
@@ -113,16 +128,16 @@
     </div>
     <div id="all_task" class="hide">
         @foreach($tasks as $task)
-            <a href="tasks/{{$task->task_id}}/edit">
+            
                 <div class="row">
                     <div class="card col-lg-11 all-task-card">
-                        <div class="card-title" style="margin: 5px 0px !important">{{$task->task_name}}</div>
-                        <hr style="margin: 2.5px !important; width:85% !important">
-                        <div class="main-text"><small>Due: {{$task->due_date}}</small></div>
-                        <div class="main-text"><small>Status: {{$task->text}}</small></div>
+                        <div class="card-title" style="margin: 5px 0px !important"><a href="tasks/{{$task->task_id}}/edit">{{$task->task_name}}</a><img onclick="quickUpdate()" src="{{asset('images/circle.png')}}" id="{{$task->task_id}}" class="task-img float-right"></div>
+                        <a href="tasks/{{$task->task_id}}/edit"><hr style="margin: 2.5px !important; width:85% !important"></a>
+                        <div class="main-text"><small><a href="tasks/{{$task->task_id}}/edit">Due: {{$task->due_date}}</a></small></div>
+                        <div class="main-text"><small><a href="tasks/{{$task->task_id}}/edit">Status: {{$task->text}}</a></small></div>
                     </div>
                 </div>
-            </a>
+            
         @endforeach
     </div>
 <script src="{{ asset('js/app.js') }}" defer></script>

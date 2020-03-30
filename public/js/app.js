@@ -120,4 +120,27 @@ function pushContent(){
         
 }
 
+function quickUpdate(){
+    var taskId = event.target.id;
+    $.ajax({
+        type: "POST",
+        url: "quickupdate/" + taskId,
+        data: 
+        {'taskId': taskId},
+        success: function(response){
+            if(response === "failed"){
+                alert("Task could not be updated, please try again later!");
+            }
+            else{
+                var successPlace = document.getElementById(taskId);
+                successPlace.src = response;
+            }
+        },
+        error: function(jqXHR, textStatus, errorThrown) { // What to do if we fail
+            console.log(JSON.stringify(jqXHR));
+            console.log("AJAX error: " + textStatus + ' : ' + errorThrown);
+        },
+    })
+}
+
 

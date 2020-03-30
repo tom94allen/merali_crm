@@ -73,7 +73,7 @@ a:hover{
 }
 
 .day-card{
-    margin: 5px;
+    margin: 5px !important;
     border: 2px solid rgb(1,25,54, 0.05);
     border-radius: 6px;
     background-color: rgb(1,25,54, 0.1) !important;
@@ -84,6 +84,10 @@ a:hover{
     transition: all .2s ease-in-out;
     border: 2px solid rgb(1,25,54, 0.05);
     border-radius: 6px;
+    display: inline-block;
+    width: 75%;
+    height:  50px !important;
+    overflow: hidden;
 }
 
 .task-card:hover{
@@ -440,4 +444,14 @@ ol li:hover{
     margin-bottom: 345px;
 }
 
+.task-img{
+    transform: scale(0.8);
+    width: 25px;
+}
+
+.cal-task{
+    transform: scale(0.8);
+    width: 15px;
+    margin-left: 0.25rem;
+}
 

@@ -50,3 +50,5 @@ Route::post('deactivate/{id}', 'CustomerController@deactivate');
 Route::get('/custadvancedsearch', 'CustomerController@custAdvancedSearch');
 
 Route::post('/addnote/{id}', 'CustomerController@addNote');
+
+Route::post('quickupdate/{id}', 'TasksController@quickUpdate');
