@@ -1,7 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
-    @if ($customer->active_ind == 0)
+    <!--Top half customer summary and different actions-->
+    @if ($customer[0]->active_ind == 0)
         <div class="row">
             <div class="col-lg">
                 <h1 class="welcome text-center">Customer is deactivated</h1>
@@ -9,15 +10,17 @@
         </div>
     @endif
     <div id="page" class="col-lg">
+        <!--actions for customer eg. create task-->
         <div class="row">
-            <h1 class="col-lg-3 welcome" style="text-decoration:underline">{{$customer->name}}</h1>
-            <a class="col-lg-2 cust-btns" @if($customer->active_ind == 0) href="" @else href='../customers/{{$customer->customer_id}}/edit' @endif>Edit Customer</a>
-            <a class="col-lg-2 cust-btns" @if($customer->active_ind == 0) href="" @else href='../tasks/create/{{$customer->customer_id}}' @endif>Create Task</a>
-            <a class="col-lg-2 cust-btns" @if($customer->active_ind == 0) href="" @else href='../contacts/create/{{$customer->customer_id}}' @endif>Create Contact</a>
-            <a class="col-lg-2 cust-btns" @if($customer->active_ind == 0) href="{{url('customers')}}" @else href='{{url()->previous()}}' @endif>Go Back</a>
+            <h1 class="col-lg-3 welcome" style="text-decoration:underline">{{$customer[0]->name}}</h1>
+            <a class="col-lg-2 cust-btns" @if($customer[0]->active_ind == 0) href="" @else href='../customers/{{$customer[0]->customer_id}}/edit' @endif>Edit Customer</a>
+            <a class="col-lg-2 cust-btns" @if($customer[0]->active_ind == 0) href="" @else href='../tasks/create/{{$customer[0]->customer_id}}' @endif>Create Task</a>
+            <a class="col-lg-2 cust-btns" @if($customer[0]->active_ind == 0) href="" @else href='../contacts/create/{{$customer[0]->customer_id}}' @endif>Create Contact</a>
+            <a class="col-lg-2 cust-btns" @if($customer[0]->active_ind == 0) href="{{url('customers')}}" @else href='{{url()->previous()}}' @endif>Go Back</a>
         </div>
         <br>
 
+        <!--customer information summary-->
         <div class="row">
             <div id="customer_info">
                 <h4 class="welcome">Customer Details</h4>
@@ -25,47 +28,35 @@
                 <div id="info">
                     <div class="row">
                         <aside class="col-lg-1 table-label">Status</aside>
-                        @foreach ($cust_status as $status)
-                            @if ($status->status_id == $customer->status)
-                                <aside class="col-lg-2 table-item">{{$status->name}}</aside>
-                            @endif
-                        @endforeach
+                        <aside class="col-lg-2 table-item">{{$customer[0]->cust_status}}</aside>
                         &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
                         <aside class="col-lg-1 table-label">Owner</aside>
-                        @foreach ($users as $user)
-                            @if ($user->id == $customer->owner)
-                                <aside class="col-lg-2 table-item">{{$user->name}}</aside>
-                            @endif
-                        @endforeach
+                        <aside class="col-lg-2 table-item">{{$customer[0]->username}}</aside>
                         &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;           
                         <aside class="col-lg-1 table-label">Sector</aside>
-                        @foreach ($sectors as $sector)
-                            @if ($sector->sector_id == $customer->sector)
-                                <aside class="col-lg-2 table-item">{{$sector->name}}</aside>
-                            @endif
-                        @endforeach
+                        <aside class="col-lg-2 table-item">{{$customer[0]->sector}}</aside>
                     </div>
                     <br>
                     <div class="row">
                         <aside class="col-lg-1 table-label">Address</aside>
-                        <aside class="col-lg-2 table-item">{{$customer->address_line1}}</aside>
+                        <aside class="col-lg-2 table-item">{{$customer[0]->address_line1}}</aside>
                         &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
                         <aside class="col-lg-1 table-label">Postcode</aside>
-                        <aside class="col-lg-2 table-item">{{$customer->postcode}}</aside>
+                        <aside class="col-lg-2 table-item">{{$customer[0]->postcode}}</aside>
                         &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;           
                         <aside class="col-lg-1 table-label">Town</aside>
-                        <aside class="col-lg-2 table-item">{{$customer->town}}</aside>
+                        <aside class="col-lg-2 table-item">{{$customer[0]->town}}</aside>
                     </div>
                     <br>
                     <div class="row">
                         <aside class="col-lg-1 table-label">Contact</aside>
-                        <aside class="col-lg-2 table-item">{{$customer->contact_name}}</aside>
+                        <aside class="col-lg-2 table-item">{{$customer[0]->contact_name}}</aside>
                         &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
                         <aside class="col-lg-1 table-label">Telephone</aside>
-                        <aside class="col-lg-2 table-item">{{$customer->telephone}}</aside>
+                        <aside class="col-lg-2 table-item">{{$customer[0]->telephone}}</aside>
                         &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;           
                         <aside class="col-lg-1 table-label">Position</aside>
-                        <aside class="col-lg-2 table-item">{{$customer->contact_role}}</aside>
+                        <aside class="col-lg-2 table-item">{{$customer[0]->contact_role}}</aside>
                     </div>
                 </div>
             </div>
@@ -81,6 +72,7 @@
             </div>
             <br>
         @endif
+        <!--customers open tasks-->
         <div class="row">
             <div class="col-lg-6" id="cx-task-display">
                 <br>
@@ -96,6 +88,7 @@
                 @endforeach
             </div>
             <div class="col-lg-1"></div>
+            <!--Customers recent contacts-->
             <div class="col-lg-5" id="cx-contacts">
                 <br>
                 <h4 class="welcome">Recent Contacts</h4>
@@ -105,13 +98,13 @@
                             <a href="../contacts/{{$contact->contact_id}}">
                                 @switch($contact->type_id)
                                     @case(1)
-                                        <li>Phone call on {{$contact->created_at->format('d/m/Y')}},</li>
+                                        <li>Phone call on {{date('d/m/Y', strtotime($contact->created_at))}},</li>
                                         @break
                                     @case(2)
-                                        <li>Email on {{$contact->created_at->format('d/m/Y')}},</li>
+                                        <li>Email on {{date('d/m/Y', strtotime($contact->created_at))}},</li>
                                         @break
                                     @case(3)
-                                        <li>Spoke face to face on {{$contact->created_at->format('d/m/Y')}},</li>
+                                        <li>Spoke face to face on {{date('d/m/Y', strtotime($contact->created_at))}},</li>
                                         @break
                                     @default
                                         @break
@@ -122,7 +115,7 @@
                 <br><br>
                 <div class="row">
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <a class="col-lg-4 cust-btns" @if($customer->active_ind ==0) href="" @else href='../contacts/showcontacts/{{$customer->customer_id}}' @endif>View All</a>
+                    <a class="col-lg-4 cust-btns" @if($customer[0]->active_ind ==0) href="" @else href='../contacts/showcontacts/{{$customer[0]->customer_id}}' @endif>View All</a>
                 </div>
             </div>
             <div id="danger-zone">
@@ -131,10 +124,10 @@
                         <h4 class="welcome">Danger Zone</h4>
                     </div>
                 </div>
-                @if($customer->active_ind != 0)
+                @if($customer[0]->active_ind != 0)
                     <div class="row">
                         <div class="col-lg">
-                            {!! Form::open(['action' => ['CustomerController@deactivate', $customer->customer_id], 'method' => 'POST', 'id' => 'deleteForm']) !!}
+                            {!! Form::open(['action' => ['CustomerController@deactivate', $customer[0]->customer_id], 'method' => 'POST', 'id' => 'deleteForm']) !!}
                                 {!! Form::submit('Deactivate Customer', ['id' => 'cust-delete']) !!}
                             {!! Form::close() !!}
                         </div>

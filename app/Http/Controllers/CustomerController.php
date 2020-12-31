@@ -115,14 +115,16 @@ class CustomerController extends Controller
      */
     public function show($id)
     {
+
         //fetch the required info on the customer in question dynamically parsing the id to the query
-        $customer = DB::select(DB::raw('select c.*, u.name as username, cs.name as cust_status, st.name as sector
+        $customer = DB::select(DB::raw('select c.*, u.name as username, c.active_ind, cs.name as cust_status, st.name as sector
                                 from customers c
                                 left join users u on c.owner = u.id
                                 left join customer_status cs on c.status = cs.status_id
                                 left join sector_type st on c.sector = st.sector_id
                                 where c.active_ind = 1
                                 and c.customer_id = '.$id.';'));
+        // return $customer;
         $note = Customer::select('notes')
                            ->where('customer_id', $id)
                            ->where('active_ind', 1)

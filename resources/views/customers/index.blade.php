@@ -24,7 +24,7 @@
         </div>
         <div class="row">
             <div class="col-lg">
-                <input type="text" name="customer_search" id="customer_search" class="form-control" placeholder="Begin typing name of customer..." onkeyup="findCustomer();">
+                <input type="text" onkeyup="findCustomer();" name="customer_search" id="customer_search" class="form-control" placeholder="Begin typing name of customer...">
                 <div id="customer_result"></div>
             </div>
         </div>
